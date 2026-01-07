@@ -516,7 +516,7 @@ export default function AdventureForm({ onSubmit, onBack, isLoading }: Adventure
                     <Input
                       id="clientname"
                       type="text"
-                      placeholder="Juan Pérez García"
+                      placeholder="Tu nombre completo"
                       value={formData.clientname}
                       onChange={(e) => setFormData({ ...formData, clientname: e.target.value })}
                       className={`text-lg py-6 ${errors.clientname ? 'border-red-500' : ''}`}
@@ -555,7 +555,7 @@ export default function AdventureForm({ onSubmit, onBack, isLoading }: Adventure
                     <Input
                       id="phonewhatsapp"
                       type="tel"
-                      placeholder="52 664 123 4567"
+                      placeholder="Ej: +52 664 123 4567"
                       value={formData.phonewhatsapp}
                       onChange={(e) => setFormData({ ...formData, phonewhatsapp: e.target.value })}
                       className={`text-lg py-6 ${errors.phonewhatsapp ? 'border-red-500' : ''}`}

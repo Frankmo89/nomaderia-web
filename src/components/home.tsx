@@ -2,11 +2,17 @@ import { useState, useRef, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import Navigation from './Navigation';
 import Hero from './Hero';
+import Destinations from './Destinations';
+import Gallery from './Gallery';
+import TripCalculator from './TripCalculator';
+import WhatsAppWidget from './WhatsAppWidget';
+import MyYosemiteStory from './MyYosemiteStory';
 import TravelBlog from './TravelBlog';
 import AdventureForm, { FormData } from './AdventureForm';
 import LoadingState from './LoadingState';
 import ItineraryResults from './ItineraryResults';
 import Footer from './Footer';
+import { sendBothEmails } from '../lib/emailService';
 
 export interface ItineraryData {
   itinerary_text?: string;
@@ -57,20 +63,80 @@ export default function Home() {
     setAppState('loading');
     setError(null);
 
-    const webhookUrl = import.meta.env.VITE_N8N_WEBHOOK_URL;
+    // 1. Guardar en Supabase (Persistencia real)
+    try {
+      const { supabase } = await import('../lib/supabase');
+      const { error: supabaseError } = await supabase.from('leads').insert([{
+        clientname: data.clientname,
+        clientemail: data.clientemail,
+        phonewhatsapp: data.phonewhatsapp,
+        destination: data.primarydestination,
+        budget: data.budgetusdperperson,
+        accommodation: data.accommodationpreference,
+        fitness_level: data.fitnesslevel,
+        travel_dates: data.travelmonth || data.preferreddeparturedate,
+        status: 'new'
+      }]);
 
-    if (!webhookUrl) {
-      // Fallback to mock data if no webhook URL is configured
-      console.warn('N8N webhook URL not configured, using mock data');
-      setTimeout(() => {
-        setItineraryData(null);
-        setAppState('results');
-        setIsSubmitting(false);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }, 3500);
-      return;
+      if (supabaseError) {
+        console.error('Error guardando en Supabase:', supabaseError);
+        // No lanzamos error aquí para no bloquear el flujo si Supabase falla
+      } else {
+        console.log('Lead guardado exitosamente en Supabase');
+      }
+    } catch (err) {
+      console.error('Error de conexión con Supabase:', err);
     }
 
+    // 2. Enviar emails automáticos (confirmación al cliente + notificación a admin)
+    try {
+      const emailData = {
+        clientname: data.clientname,
+        clientemail: data.clientemail,
+        phonewhatsapp: data.phonewhatsapp,
+        destination: data.primarydestination,
+        tripstartdate: data.preferreddeparturedate || data.travelmonth || 'Por definir',
+        tripenddate: data.preferreddeparturedate ? 'Según duración' : 'Por definir',
+        travelers: data.adultscount + data.childrencount,
+        budgetrange: data.budgetusdperperson,
+        leadsource: data.leadsource,
+        leadsourceother: data.leadsourceother,
+        comments: data.additionalnotes,
+      };
+
+      const emailResults = await sendBothEmails(emailData);
+      
+      if (emailResults.success) {
+        console.log('✅ Emails enviados exitosamente');
+      } else {
+        console.error('⚠️ Error enviando emails:', {
+          client: emailResults.client,
+          admin: emailResults.admin
+        });
+      }
+    } catch (emailError) {
+      console.error('⚠️ Error en sistema de emails:', emailError);
+      // No bloqueamos el flujo si los emails fallan
+    }
+
+    // 3. Mostrar mensaje de éxito al usuario
+    setTimeout(() => {
+      setItineraryData({
+        titulo: `¡Gracias por confiar en Nomadería!`,
+        itinerary_text: `Hola ${data.clientname.split(' ')[0]},\n\nTu solicitud para ${data.primarydestination} ha sido recibida exitosamente.\n\nYa estamos trabajando en tu itinerario personalizado y te contactaremos en las próximas 24 horas por WhatsApp o email.\n\n¿Tienes dudas? Escríbeme por WhatsApp: +1 858 899 6802\n\n"Aquí nadie se pierde... nomás se encuentra."\n\nFrancisco Alonso\nNomadería - Tu Arquitecto de Aventuras`,
+      });
+      setAppState('results');
+      setIsSubmitting(false);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 2000);
+
+    // NOTA: El código de N8N se mantiene comentado por si lo necesitas en el futuro
+    /*
+    const webhookUrl = import.meta.env.VITE_N8N_WEBHOOK_URL;
+    if (!webhookUrl) {
+      console.warn('N8N webhook URL not configured');
+      return;
+    }
     try {
       const payload = {
         // Metadata
@@ -197,6 +263,7 @@ export default function Home() {
     } finally {
       setIsSubmitting(false);
     }
+    */
   };
 
   const handleBackToHero = () => {
@@ -226,6 +293,13 @@ export default function Home() {
       {appState === 'hero' && (
         <>
           <Hero onStartPlanning={handleStartPlanning} />
+          <div id="destinos">
+           <Destinations onPlanTrip={handleStartPlanning} />
+        <TripCalculator />
+        <MyYosemiteStory />
+        <Gallery />
+        <WhatsAppWidget /> </div>
+          <Gallery />
           <TravelBlog />
           <Footer />
         </>

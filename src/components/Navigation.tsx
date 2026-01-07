@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-import { Mountain } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 
@@ -20,8 +19,11 @@ export default function Navigation({ onStartPlanning }: NavigationProps) {
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-8 md:px-16 lg:px-24 py-5 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-3 hover:opacity-90 transition-opacity">
-          <Mountain className="w-8 h-8 text-[#E8744F]" />
-          <span className="text-display text-2xl font-bold text-white tracking-tight">Nomaderia</span>
+          <img 
+            src="/images/logo/logo_horizontal.png" 
+            alt="Nomadería" 
+            className="h-12 w-auto brightness-0 invert"
+          />
         </Link>
 
         <div className="flex items-center gap-4">
