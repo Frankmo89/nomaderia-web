@@ -11,11 +11,9 @@ export default function Footer() {
           {/* Logo & Tagline */}
           <div className="text-center md:text-left">
             <div className="flex items-center justify-center md:justify-start mb-4">
-              <img 
-                src="/images/logo/logo_horizontal.png" 
-                alt="Nomadería" 
-                className="h-12 w-auto"
-              />
+              <h3 className="font-display text-3xl font-bold text-white">
+                NOMADERÍA
+              </h3>
             </div>
             <p className="text-white/60 text-base leading-relaxed max-w-xs mx-auto md:mx-0">
               Tu arquitecto de aventuras. Diseñamos tu viaje perfecto a Parques Nacionales de EE.UU.

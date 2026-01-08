@@ -24,11 +24,9 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
       <header className="bg-[#0A2540] border-b border-white/10 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <img 
-              src="/images/logo/logo_horizontal.png" 
-              alt="Nomadería" 
-              className="h-10 w-auto brightness-0 invert"
-            />
+            <h2 className="font-display text-2xl font-bold text-white">
+              NOMADERÍA
+            </h2>
             <h1 className="text-white font-bold text-xl">Panel de Administración</h1>
           </div>
           <button

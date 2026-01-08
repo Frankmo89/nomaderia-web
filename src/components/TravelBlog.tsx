@@ -1,132 +1,36 @@
 import { motion } from 'framer-motion';
 import { Card } from '@/components/ui/card';
-import { MapPin, Clock, Users } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import { supabase, Article } from '@/lib/supabase';
+import { MapPin, Clock } from 'lucide-react';
+import { useState } from 'react';
+import { blogPosts as realBlogPosts } from '@/data/blogPosts';
 
 interface BlogPost {
-  id: number;
+  id: string;
   title: string;
-  category: string;
+  category: 'destinos' | 'tips' | 'equipo';
   image: string;
   excerpt: string;
   readTime: string;
-  location: string;
+  slug: string;
 }
 
-const mockBlogPosts: BlogPost[] = [
-  {
-    id: 1,
-    title: 'Guía Completa: Senderismo en la Patagonia',
-    category: 'Destinos',
-    image: 'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=800&q=80',
-    excerpt: 'Todo lo que necesitas saber para planear tu aventura en uno de los lugares más espectaculares del mundo.',
-    readTime: '8 min',
-    location: 'Patagonia, Argentina',
-  },
-  {
-    id: 2,
-    title: '10 Tips Esenciales para Acampar en Invierno',
-    category: 'Tips de Viajero',
-    image: 'https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?w=800&q=80',
-    excerpt: 'Mantente seguro y cómodo en tus aventuras de camping durante la temporada fría.',
-    readTime: '5 min',
-    location: 'Tips Generales',
-  },
-  {
-    id: 3,
-    title: 'Equipo Esencial para Mochileros Principiantes',
-    category: 'Equipo',
-    image: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&q=80',
-    excerpt: 'La lista definitiva de equipo que necesitas para tu primera aventura de mochilero.',
-    readTime: '6 min',
-    location: 'Guía de Equipo',
-  },
-  {
-    id: 4,
-    title: 'Escalada en Yosemite: Rutas para Todos los Niveles',
-    category: 'Destinos',
-    image: 'https://images.unsplash.com/photo-1522163182402-834f871fd851?w=800&q=80',
-    excerpt: 'Descubre las mejores rutas de escalada en el icónico parque nacional de California.',
-    readTime: '7 min',
-    location: 'Yosemite, California',
-  },
-  {
-    id: 5,
-    title: 'Cómo Planear un Viaje de Aventura con Presupuesto Limitado',
-    category: 'Tips de Viajero',
-    image: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80',
-    excerpt: 'Estrategias probadas para vivir grandes aventuras sin gastar una fortuna.',
-    readTime: '5 min',
-    location: 'Tips Generales',
-  },
-  {
-    id: 6,
-    title: 'Aventuras en el Desierto: Valle de Guadalupe',
-    category: 'Destinos',
-    image: 'https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=800&q=80',
-    excerpt: 'Explora el desierto de Baja California y sus increíbles viñedos.',
-    readTime: '6 min',
-    location: 'Baja California, México',
-  },
-];
+
 
 export default function TravelBlog() {
-  const [articles, setArticles] = useState<BlogPost[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState<'todos' | 'destinos' | 'tips' | 'equipo'>('todos');
 
-  useEffect(() => {
-    fetchArticles();
-  }, []);
+  const filteredPosts = selectedCategory === 'todos' 
+    ? realBlogPosts 
+    : realBlogPosts.filter(post => post.category === selectedCategory);
 
-  async function fetchArticles() {
-    try {
-      const { data, error } = await supabase
-        .from('articles')
-        .select('*')
-        .order('published_at', { ascending: false })
-        .limit(6);
-
-      if (error) throw error;
-      
-      if (data && data.length > 0) {
-        // Transform Supabase articles to BlogPost format
-        const transformedArticles = data.map((article: Article, index: number) => ({
-          id: index + 1,
-          title: article.title,
-          category: article.category,
-          image: article.image_url,
-          excerpt: article.excerpt,
-          readTime: article.read_time,
-          location: article.tags?.[0] || 'Aventura',
-        }));
-        setArticles(transformedArticles);
-      } else {
-        setArticles(mockBlogPosts);
-      }
-    } catch (error) {
-      console.error('Error fetching articles:', error);
-      setArticles(mockBlogPosts);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  const blogPosts = articles;
-
-  if (loading) {
-    return (
-      <section className="min-h-screen bg-[#F8F6F3] noise-texture py-24 px-6 sm:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center">
-            <h2 className="text-display text-4xl font-black text-[#0A2540]">
-              Cargando artículos...
-            </h2>
-          </div>
-        </div>
-      </section>
-    );
-  }
+  const getCategoryLabel = (category: string) => {
+    const labels: Record<string, string> = {
+      destinos: 'Destinos',
+      tips: 'Tips de Viajero',
+      equipo: 'Equipo'
+    };
+    return labels[category] || category;
+  };
 
   return (
     <section className="min-h-screen bg-[#F8F6F3] noise-texture py-24 px-6 sm:px-8">
@@ -158,23 +62,29 @@ export default function TravelBlog() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="flex flex-wrap justify-center gap-3 mb-12"
         >
-          {['Todos', 'Destinos', 'Tips de Viajero', 'Equipo'].map((category) => (
+          {[
+            { label: 'Todos', value: 'todos' },
+            { label: 'Destinos', value: 'destinos' },
+            { label: 'Tips de Viajero', value: 'tips' },
+            { label: 'Equipo', value: 'equipo' }
+          ].map((category) => (
             <button
-              key={category}
+              key={category.value}
+              onClick={() => setSelectedCategory(category.value as any)}
               className={`px-6 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${
-                category === 'Todos'
+                selectedCategory === category.value
                   ? 'bg-[#2D5F3F] text-white'
                   : 'bg-white text-[#2C3E50] hover:bg-[#2D5F3F]/10 border border-gray-200'
               }`}
             >
-              {category}
+              {category.label}
             </button>
           ))}
         </motion.div>
 
         {/* Blog Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {blogPosts.map((post, index) => (
+          {filteredPosts.map((post, index) => (
             <motion.div
               key={post.id}
               initial={{ opacity: 0, y: 40 }}
@@ -196,7 +106,7 @@ export default function TravelBlog() {
                 <div className="p-6">
                   {/* Category Badge */}
                   <span className="inline-block px-3 py-1 bg-[#E8744F]/10 text-[#E8744F] text-xs font-semibold rounded-full mb-3">
-                    {post.category}
+                    {getCategoryLabel(post.category)}
                   </span>
 
                   {/* Title */}
@@ -215,11 +125,15 @@ export default function TravelBlog() {
                       <Clock className="w-3.5 h-3.5" />
                       <span>{post.readTime}</span>
                     </div>
-                    <div className="flex items-center gap-1">
-                      <MapPin className="w-3.5 h-3.5" />
-                      <span>{post.location}</span>
-                    </div>
                   </div>
+                  
+                  {/* Read More Link */}
+                  <a 
+                    href={`/blog/${post.slug}`}
+                    className="inline-block mt-4 text-[#2D5F3F] hover:text-[#E8744F] font-semibold text-sm transition-colors"
+                  >
+                    Leer más →
+                  </a>
                 </div>
               </Card>
             </motion.div>

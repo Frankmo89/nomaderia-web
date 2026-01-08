@@ -32,11 +32,9 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-12">
-          <img 
-            src="/images/logo/logo_horizontal.png" 
-            alt="Nomadería" 
-            className="h-16 w-auto mx-auto mb-8 brightness-0 invert"
-          />
+          <h2 className="font-display text-5xl font-bold text-white mb-8">
+            NOMADERÍA
+          </h2>
           <h1 className="text-4xl font-black text-white mb-2">Panel Admin</h1>
           <p className="text-white/60">Acceso exclusivo para Nomadería</p>
         </div>
