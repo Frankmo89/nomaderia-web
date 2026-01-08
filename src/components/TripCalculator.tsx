@@ -343,7 +343,7 @@ export default function TripCalculator() {
             ¿Quieres que nosotros nos encarguemos de TODO?
           </p>
           <a
-            href="/servicios"
+            href="/?start=form"
             className="inline-block bg-white hover:bg-slate-100 text-slate-900 font-bold py-4 px-8 rounded-lg transition-all shadow-lg"
           >
             Ver Paquetes de Nomadería

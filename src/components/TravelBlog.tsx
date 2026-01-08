@@ -238,24 +238,18 @@ export default function TravelBlog() {
             Lo Que Dicen Nuestros Aventureros
           </h3>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {[
               {
-                name: 'María González',
-                location: 'Ciudad de México',
-                text: 'El itinerario generado fue perfecto. Cada detalle estaba pensado y me ayudó a tener la mejor experiencia en Patagonia.',
-                image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80',
-              },
-              {
-                name: 'Carlos Ramírez',
-                location: 'Monterrey',
-                text: 'Como principiante, los tips contextuales me dieron la confianza que necesitaba para mi primera aventura de camping.',
+                name: 'Papá de Francisco (60 años)',
+                location: 'Tecate, BC',
+                text: 'Mi hijo Francisco nos llevó a Yosemite en marzo 2025. Fue nuestra primera vez en un parque nacional de Estados Unidos. Francisco pasó más de 20 horas investigando rutas, permisos y alojamientos para que nosotros solo disfrutaramos. Fue perfecto.',
                 image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80',
               },
               {
-                name: 'Ana Martínez',
-                location: 'Guadalajara',
-                text: 'La optimización del presupuesto fue increíble. Pude hacer más con menos dinero del que pensaba.',
+                name: 'Mamá de Francisco (58 años)',
+                location: 'Tecate, BC',
+                text: 'Ver las cataratas de Yosemite con nieve fue mágico. Francisco nos preparó para todo: el frío, las rutas, dónde comer. No tuvimos que preocuparnos por nada. Ahora entiendo por qué creó Nomadería.',
                 image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80',
               },
             ].map((testimonial, index) => (

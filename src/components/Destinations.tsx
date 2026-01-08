@@ -20,7 +20,7 @@ export default function Destinations({ onSelectDestination }: DestinationsProps)
       difficulty: 'Moderado',
     },
     {
-      name: 'Grand Canyon',
+      name: 'Gran Cañón',
       tagline: 'Una de las 7 maravillas naturales del mundo',
       image: '/images/parks/grand-canyon/hero.jpg',
       icon: Waves,
@@ -66,7 +66,7 @@ export default function Destinations({ onSelectDestination }: DestinationsProps)
             Nuestros Destinos
           </p>
           <h2 className="text-display text-4xl sm:text-5xl md:text-6xl font-black text-[#0A2540] mb-6">
-            4 Parques Nacionales Épicos
+            4 parques nacionales épicos
           </h2>
           <p className="text-xl text-[#2C3E50]/70 max-w-3xl mx-auto">
             Desde Baja California hasta las maravillas naturales de Estados Unidos.

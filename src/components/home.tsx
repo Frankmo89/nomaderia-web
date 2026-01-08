@@ -262,7 +262,7 @@ export default function Home() {
         <>
           <Hero onStartPlanning={handleStartPlanning} />
           <div id="destinos">
-            <Destinations onPlanTrip={handleStartPlanning} />
+            <Destinations onSelectDestination={handleStartPlanning} />
           </div>
           <MyYosemiteStory />
           <TripCalculator />

@@ -63,10 +63,13 @@ export default function MyYosemiteStory() {
 
             <div className="prose prose-lg max-w-none">
               <p className="text-slate-700 leading-relaxed mb-4">
-                En marzo de 2025, decidí llevar a mis papás a Yosemite. Fue su primera vez en un parque nacional de Estados Unidos y quería que fuera perfecto. Pasé más de <strong>20 horas investigando</strong>: rutas de hiking, alojamientos, permisos, cruces de frontera, qué llevar para la nieve...
+                En marzo de 2025, llevé a mis papás (60 años) a Yosemite. Era su primera vez en un parque nacional de Estados Unidos. Pasé más de <strong>20 horas investigando</strong> para que ellos solo disfrutaran: rutas, permisos, alojamiento, qué llevar para la nieve, dónde comer...
+              </p>
+              <p className="text-slate-700 leading-relaxed mb-4">
+                El viaje fue <strong>perfecto</strong>. Ver a mis papás frente a las cataratas con nieve, caminando por Mirror Lake, sin preocupaciones... Eso no tiene precio.
               </p>
               <p className="text-slate-700 leading-relaxed">
-                La experiencia fue increíble, pero el proceso de planificación fue <strong>estresante y confuso</strong>. Ahí nació la idea de Nomadería: ayudar a otros viajeros a vivir estas aventuras sin el dolor de cabeza de organizarlo todo.
+                Pero la planificación fue <strong>estresante y confusa</strong>. Cometí errores que me costaron tiempo y dinero. Ahí nació Nomadería: <strong>para que tú no cometas mis errores</strong>. Para que llegues preparado y solo disfrutes.
               </p>
             </div>
           </motion.div>
@@ -193,7 +196,7 @@ export default function MyYosemiteStory() {
               Deja que mi experiencia (y mis errores) te ayuden a tener el viaje perfecto desde el primer intento.
             </p>
             <a
-              href="/servicios"
+              href="/?start=form"
               className="inline-block bg-white hover:bg-slate-100 text-orange-600 font-bold py-4 px-8 rounded-lg transition-all shadow-lg"
             >
               Planea Tu Viaje Conmigo

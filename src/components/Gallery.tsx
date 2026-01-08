@@ -115,7 +115,7 @@ export default function Gallery() {
             className="text-center mt-16"
           >
             <p className="text-2xl sm:text-3xl font-bold text-[#E8744F] italic max-w-3xl mx-auto">
-              "La montaña no te espera. Pero nosotros sí te ayudamos a llegar preparado."
+              "La montaña no espera. Nosotros te ayudamos a llegar preparado."
             </p>
           </motion.div>
         </div>

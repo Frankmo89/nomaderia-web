@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ChevronDown, Compass, MapPin, Shield, Sparkles } from 'lucide-react';
+import { Compass, MapPin, Shield, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import CertificationBadge from './CertificationBadge';
@@ -84,7 +84,7 @@ export default function Hero({ onStartPlanning }: HeroProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
           >
-            Desde Tecate, Baja California hasta Yosemite, Zion y Grand Canyon
+            Desde Tecate, Baja California hasta Yosemite, Zion y Gran Cañón
           </motion.p>
 
           {/* Description */}
@@ -187,15 +187,7 @@ export default function Hero({ onStartPlanning }: HeroProps) {
         </motion.div>
       </div>
 
-      {/* Scroll Indicator */}
-      <motion.div
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 1.6, repeat: Infinity, repeatType: 'reverse' }}
-      >
-        <ChevronDown className="w-10 h-10 text-white/60" />
-      </motion.div>
+
     </section>
   );
 }
