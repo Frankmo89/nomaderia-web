@@ -18,7 +18,7 @@ export const blogPosts: BlogPost[] = [
     category: 'tips',
     date: '8 de enero de 2026',
     readTime: '5 min',
-    image: '/images/destinations/yosemite.jpg',
+    image: '/images/parks/yosemite/hero.jpg',
     slug: 'guia-yosemite-invierno',
     content: '/src/articles/guia-yosemite-invierno.md'
   },
@@ -29,7 +29,7 @@ export const blogPosts: BlogPost[] = [
     category: 'destinos',
     date: '8 de enero de 2026',
     readTime: '4 min',
-    image: '/images/destinations/yosemite.jpg',
+    image: '/images/parks/yosemite/hero.jpg',
     slug: '5-errores-yosemite',
     content: '/src/articles/5-errores-yosemite.md'
   },
@@ -40,7 +40,7 @@ export const blogPosts: BlogPost[] = [
     category: 'tips',
     date: '8 de enero de 2026',
     readTime: '6 min',
-    image: '/images/destinations/yosemite.jpg',
+    image: '/images/parks/yosemite/hero.jpg',
     slug: 'presupuesto-yosemite-tecate',
     content: '/src/articles/presupuesto-yosemite-tecate.md'
   },
@@ -51,7 +51,7 @@ export const blogPosts: BlogPost[] = [
     category: 'tips',
     date: '8 de enero de 2026',
     readTime: '5 min',
-    image: '/images/blog/frontera.jpg',
+    image: '/images/hero/main.jpg'
     slug: 'frontera-tecate-vs-san-ysidro',
     content: '/src/articles/frontera-tecate-vs-san-ysidro.md'
   },
@@ -62,7 +62,7 @@ export const blogPosts: BlogPost[] = [
     category: 'tips',
     date: '8 de enero de 2026',
     readTime: '7 min',
-    image: '/images/destinations/yosemite.jpg',
+    image: '/images/parks/yosemite/hero.jpg',
     slug: 'permisos-reservaciones-yosemite',
     content: '/src/articles/permisos-reservaciones-yosemite.md'
   }
