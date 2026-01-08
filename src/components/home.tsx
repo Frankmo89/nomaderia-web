@@ -12,7 +12,6 @@ import AdventureForm, { FormData } from './AdventureForm';
 import LoadingState from './LoadingState';
 import ItineraryResults from './ItineraryResults';
 import Footer from './Footer';
-import { sendBothEmails } from '../lib/emailService';
 
 export interface ItineraryData {
   itinerary_text?: string;
@@ -88,38 +87,7 @@ export default function Home() {
       console.error('Error de conexión con Supabase:', err);
     }
 
-    // 2. Enviar emails automáticos (confirmación al cliente + notificación a admin)
-    try {
-      const emailData = {
-        clientname: data.clientname,
-        clientemail: data.clientemail,
-        phonewhatsapp: data.phonewhatsapp,
-        destination: data.primarydestination,
-        tripstartdate: data.preferreddeparturedate || data.travelmonth || 'Por definir',
-        tripenddate: data.preferreddeparturedate ? 'Según duración' : 'Por definir',
-        travelers: data.adultscount + data.childrencount,
-        budgetrange: data.budgetusdperperson,
-        leadsource: data.leadsource,
-        leadsourceother: data.leadsourceother,
-        comments: data.additionalnotes,
-      };
-
-      const emailResults = await sendBothEmails(emailData);
-      
-      if (emailResults.success) {
-        console.log('✅ Emails enviados exitosamente');
-      } else {
-        console.error('⚠️ Error enviando emails:', {
-          client: emailResults.client,
-          admin: emailResults.admin
-        });
-      }
-    } catch (emailError) {
-      console.error('⚠️ Error en sistema de emails:', emailError);
-      // No bloqueamos el flujo si los emails fallan
-    }
-
-    // 3. Mostrar mensaje de éxito al usuario
+    // 2. Mostrar mensaje de éxito al usuario
     setTimeout(() => {
       setItineraryData({
         titulo: `¡Gracias por confiar en Nomadería!`,
@@ -294,14 +262,14 @@ export default function Home() {
         <>
           <Hero onStartPlanning={handleStartPlanning} />
           <div id="destinos">
-           <Destinations onPlanTrip={handleStartPlanning} />
-        <TripCalculator />
-        <MyYosemiteStory />
-        <Gallery />
-        <WhatsAppWidget /> </div>
+            <Destinations onPlanTrip={handleStartPlanning} />
+          </div>
+          <MyYosemiteStory />
+          <TripCalculator />
           <Gallery />
           <TravelBlog />
           <Footer />
+          <WhatsAppWidget />
         </>
       )}
 

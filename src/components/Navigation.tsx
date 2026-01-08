@@ -22,7 +22,7 @@ export default function Navigation({ onStartPlanning }: NavigationProps) {
           <img 
             src="/images/logo/logo_horizontal.png" 
             alt="Nomadería" 
-            className="h-12 w-auto brightness-0 invert"
+            className="h-8 sm:h-10 md:h-12 w-auto brightness-0 invert"
           />
         </Link>
 

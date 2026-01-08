@@ -579,7 +579,7 @@ export default function AdventureForm({ onSubmit, onBack, isLoading }: Adventure
                       <SelectTrigger className={`text-lg py-6 ${errors.leadsource ? 'border-red-500' : ''}`}>
                         <SelectValue placeholder="Selecciona una opción" />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="z-50">
                         {leadSourceOptions.map((option) => (
                           <SelectItem key={option.value} value={option.value}>
                             {option.label}
@@ -646,7 +646,7 @@ export default function AdventureForm({ onSubmit, onBack, isLoading }: Adventure
                       <SelectTrigger className={`text-lg py-6 ${errors.departurecity ? 'border-red-500' : ''}`}>
                         <SelectValue placeholder="Selecciona tu ciudad" />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="z-50">
                         {departureCityOptions.map((option) => (
                           <SelectItem key={option.value} value={option.value}>
                             {option.label}
@@ -718,7 +718,7 @@ export default function AdventureForm({ onSubmit, onBack, isLoading }: Adventure
                       <SelectTrigger className={`text-lg py-6 ${errors.vehicletype ? 'border-red-500' : ''}`}>
                         <SelectValue placeholder="Selecciona tipo de vehículo" />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="z-50">
                         {vehicleTypeOptions.map((option) => (
                           <SelectItem key={option.value} value={option.value}>
                             {option.label}
@@ -762,7 +762,7 @@ export default function AdventureForm({ onSubmit, onBack, isLoading }: Adventure
                       <SelectTrigger className={`text-lg py-6 ${errors.primarydestination ? 'border-red-500' : ''}`}>
                         <SelectValue placeholder="Selecciona tu destino" />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="z-50">
                         {primaryDestinationOptions.map((option) => (
                           <SelectItem key={option.value} value={option.value}>
                             {option.label}
@@ -845,7 +845,7 @@ export default function AdventureForm({ onSubmit, onBack, isLoading }: Adventure
                       <SelectTrigger className={`text-lg py-6 ${errors.tripduration ? 'border-red-500' : ''}`}>
                         <SelectValue placeholder="Selecciona la duración" />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="z-50">
                         {tripDurationOptions.map((option) => (
                           <SelectItem key={option.value} value={option.value}>
                             {option.label}
@@ -870,7 +870,7 @@ export default function AdventureForm({ onSubmit, onBack, isLoading }: Adventure
                       <SelectTrigger className={`text-lg py-6 ${errors.dateflexibility ? 'border-red-500' : ''}`}>
                         <SelectValue placeholder="Selecciona tu flexibilidad" />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="z-50">
                         {dateFlexibilityOptions.map((option) => (
                           <SelectItem key={option.value} value={option.value}>
                             {option.label}
@@ -913,7 +913,7 @@ export default function AdventureForm({ onSubmit, onBack, isLoading }: Adventure
                         <SelectTrigger className="text-lg py-6">
                           <SelectValue placeholder="Selecciona un mes" />
                         </SelectTrigger>
-                        <SelectContent>
+                        <SelectContent className="z-50">
                           {monthOptions.map((option) => (
                             <SelectItem key={option.value} value={option.value}>
                               {option.label}
@@ -990,7 +990,7 @@ export default function AdventureForm({ onSubmit, onBack, isLoading }: Adventure
                       <SelectTrigger className={`text-lg py-6 ${errors.fitnesslevel ? 'border-red-500' : ''}`}>
                         <SelectValue placeholder="Selecciona tu nivel" />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="z-50">
                         {fitnessLevelOptions.map((option) => (
                           <SelectItem key={option.value} value={option.value}>
                             {option.label}
@@ -1015,7 +1015,7 @@ export default function AdventureForm({ onSubmit, onBack, isLoading }: Adventure
                       <SelectTrigger className={`text-lg py-6 ${errors.tripstyle ? 'border-red-500' : ''}`}>
                         <SelectValue placeholder="Selecciona tu estilo" />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="z-50">
                         {tripStyleOptions.map((option) => (
                           <SelectItem key={option.value} value={option.value}>
                             {option.label}
@@ -1106,7 +1106,7 @@ export default function AdventureForm({ onSubmit, onBack, isLoading }: Adventure
                       <SelectTrigger className={`text-lg py-6 ${errors.budgetusdperperson ? 'border-red-500' : ''}`}>
                         <SelectValue placeholder="Selecciona tu presupuesto" />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="z-50">
                         {budgetOptions.map((option) => (
                           <SelectItem key={option.value} value={option.value}>
                             {option.label}
