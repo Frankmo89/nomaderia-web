@@ -4,6 +4,7 @@ import Home from "./components/home";
 import ServiciosPage from "./components/ServiciosPage";
 import AdminLogin from "./components/AdminLogin";
 import AdminDashboard from "./components/AdminDashboard";
+import BlogPost from "./components/BlogPost";
 
 function ServiciosWrapper() {
   const navigate = useNavigate();
@@ -45,6 +46,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/servicios" element={<ServiciosWrapper />} />
           <Route path="/admin" element={<AdminPage />} />
+          <Route path="/blog/:slug" element={<BlogPost />} />
         </Routes>
       </>
     </Suspense>
