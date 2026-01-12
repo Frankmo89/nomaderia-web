@@ -18,13 +18,13 @@ export default function AdminResources() {
   const loadItems = async () => {
     setIsLoading(true);
     try {
-      const { data, error } = await supabase
-        .from(activeTab)
+      const { data, error } = await (supabase
+        .from(activeTab) as any)
         .select('*')
         .order('created_at', { ascending: false });
 
       if (error) throw error;
-      setItems(data || []);
+      setItems((data as any) || []);
     } catch (error) {
       console.error(`Error loading ${activeTab}:`, error);
     }
@@ -33,8 +33,8 @@ export default function AdminResources() {
 
   const handleAddItem = async () => {
     try {
-      const { data, error } = await supabase
-        .from(activeTab)
+      const { data, error } = await (supabase
+        .from(activeTab) as any)
         .insert([formData])
         .select();
 
@@ -53,8 +53,8 @@ export default function AdminResources() {
   const handleDeleteItem = async (id: string) => {
     if (!confirm('¿Estás seguro de eliminar este elemento?')) return;
     try {
-      const { error } = await supabase
-        .from(activeTab)
+      const { error } = await (supabase
+        .from(activeTab) as any)
         .delete()
         .eq('id', id);
 

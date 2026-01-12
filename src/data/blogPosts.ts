@@ -51,7 +51,7 @@ export const blogPosts: BlogPost[] = [
     category: 'tips',
     date: '8 de enero de 2026',
     readTime: '5 min',
-    image: '/images/hero/main.jpg'
+    image: '/images/hero/main.jpg',
     slug: 'frontera-tecate-vs-san-ysidro',
     content: '/src/articles/frontera-tecate-vs-san-ysidro.md'
   },

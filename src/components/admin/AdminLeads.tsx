@@ -30,8 +30,8 @@ export default function AdminLeads() {
 
   const updateLeadStatus = async (id: string, newStatus: Lead['status']) => {
     try {
-      const { error } = await supabase
-        .from('leads')
+      const { error } = await (supabase
+        .from('leads') as any)
         .update({ status: newStatus })
         .eq('id', id);
 
@@ -45,13 +45,13 @@ export default function AdminLeads() {
   const loadLeads = async () => {
     setIsLoading(true);
     try {
-      const { data, error } = await supabase
-        .from('leads')
+      const { data, error } = await (supabase
+        .from('leads') as any)
         .select('*')
         .order('created_at', { ascending: false });
 
       if (error) throw error;
-      setLeads(data || []);
+      setLeads((data as any) || []);
     } catch (error) {
       console.error('Error loading leads:', error);
     }
