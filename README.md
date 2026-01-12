@@ -1,30 +1,97 @@
-# React + TypeScript + Vite
+# Nomadería Web
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Plataforma web para Nomadería - Tu Arquitecto de Aventuras. Aplicación de planificación de viajes y aventuras con integración a Supabase.
 
-Currently, two official plugins are available:
+## 🚀 Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Framework**: React 18 + TypeScript
+- **Build Tool**: Vite 
+- **Styling**: TailwindCSS
+- **UI Components**: Radix UI + shadcn/ui
+- **Animations**: Framer Motion
+- **Forms**: React Hook Form + Zod
+- **Backend**: Supabase
+- **Routing**: React Router v6
 
-## Expanding the ESLint configuration
+## 📋 Prerequisites
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- Node.js 18+ 
+- npm or pnpm
 
-- Configure the top-level `parserOptions` property like this:
+## 🛠️ Installation
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```bash
+# Install dependencies
+npm install
+
+# Copy environment variables
+cp .env.example .env
+# Edit .env with your Supabase credentials
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## 🏃‍♂️ Development
+
+```bash
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
+
+# Run linter
+npm run lint
+```
+
+## 📁 Project Structure
+
+```
+src/
+├── components/        # React components
+│   ├── ui/           # Reusable UI components (shadcn/ui)
+│   ├── admin/        # Admin dashboard components
+│   └── ...           # Feature components
+├── lib/              # Utilities and configurations
+├── types/            # TypeScript type definitions
+├── data/             # Static data and content
+└── articles/         # Blog articles content
+```
+
+## 🔧 Configuration
+
+- `vite.config.ts` - Vite build configuration with optimizations
+- `tailwind.config.js` - Tailwind CSS configuration
+- `tsconfig.json` - TypeScript configuration (strict mode enabled)
+- `.eslintrc.cjs` - ESLint rules for code quality
+
+## 🔐 Environment Variables
+
+See `.env.example` for required environment variables.
+
+## 📦 Build Optimizations
+
+- Code splitting with React.lazy
+- Manual chunk splitting for vendor libraries
+- Tree-shaking for unused code
+- Optimized dependencies bundling
+
+## 🧪 Type Checking
+
+```bash
+# Run TypeScript compiler
+tsc --noEmit
+```
+
+## 🤝 Contributing
+
+This is a private project for Nomadería.
+
+## 📄 License
+
+Private - All rights reserved
+
+---
+
+Made with ❤️ by Nomadería
