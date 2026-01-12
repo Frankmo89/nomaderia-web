@@ -58,13 +58,37 @@ export function loadImage(src: string): Promise<HTMLImageElement> {
 
 /**
  * Check if element is in viewport (for lazy loading)
+ * @param element - The HTML element to check
+ * @param threshold - Percentage of element that should be visible (0-1), default 0 for full visibility
  */
-export function isInViewport(element: HTMLElement): boolean {
+export function isInViewport(element: HTMLElement, threshold: number = 0): boolean {
   const rect = element.getBoundingClientRect();
-  return (
-    rect.top >= 0 &&
-    rect.left >= 0 &&
-    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-  );
+  const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+  const windowWidth = window.innerWidth || document.documentElement.clientWidth;
+  
+  // Calculate visible area
+  const vertInView = (rect.top <= windowHeight) && ((rect.top + rect.height) >= 0);
+  const horInView = (rect.left <= windowWidth) && ((rect.left + rect.width) >= 0);
+  
+  if (threshold === 0) {
+    // Full visibility check (original behavior)
+    return (
+      rect.top >= 0 &&
+      rect.left >= 0 &&
+      rect.bottom <= windowHeight &&
+      rect.right <= windowWidth
+    );
+  }
+  
+  // Partial visibility check with threshold
+  if (!vertInView || !horInView) {
+    return false;
+  }
+  
+  const visibleHeight = Math.min(rect.bottom, windowHeight) - Math.max(rect.top, 0);
+  const visibleWidth = Math.min(rect.right, windowWidth) - Math.max(rect.left, 0);
+  const visibleArea = visibleHeight * visibleWidth;
+  const totalArea = rect.height * rect.width;
+  
+  return visibleArea / totalArea >= threshold;
 }
