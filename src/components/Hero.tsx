@@ -1,169 +1,126 @@
 import { motion } from 'framer-motion';
-import { Compass, MapPin, Shield, Sparkles } from 'lucide-react';
+import { Compass, MapPin, Shield, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
 
 interface HeroProps {
   onStartPlanning: () => void;
 }
 
 export default function Hero({ onStartPlanning }: HeroProps) {
-  const benefits = [
-    {
-      icon: Compass,
-      title: 'Rutas Probadas',
-      description: 'Itinerarios diseñados con experiencia real en el terreno, no solo mapas.',
-    },
-    {
-      icon: Sparkles,
-      title: 'Plan a Tu Medida',
-      description: 'Ajustamos cada día según tu ritmo, presupuesto y estilo de aventura.',
-    },
-    {
-      icon: Shield,
-      title: 'Cero Estrés',
-      description: 'Nosotros vemos los permisos y la logística; tú solo manejas y disfrutas.',
-    },
-  ];
-
   return (
-    <section className="relative min-h-screen w-full overflow-hidden">
-      {/* Background Image with Overlay */}
-      <motion.div
-        className="absolute inset-0"
-        initial={{ scale: 1 }}
-        animate={{ scale: 1.05 }}
-        transition={{ duration: 20, repeat: Infinity, repeatType: 'reverse', ease: 'linear' }}
-      >
-        <div
+    <section className="relative min-h-screen w-full overflow-hidden flex items-center">
+      {/* Background Image with Cinematic Overlay */}
+      <div className="absolute inset-0 z-0">
+        <motion.div
+          initial={{ scale: 1.1 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 10, ease: "easeOut" }}
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: 'url(/images/hero/main.jpg)' }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0A2540]/60 via-[#0A2540]/50 to-[#0A2540]/90" />
-      </motion.div>
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0A2540]/90 via-[#0A2540]/60 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0A2540] via-transparent to-transparent opacity-80" />
+      </div>
 
       {/* Content */}
-      <div className="relative z-10 flex min-h-screen flex-col items-center justify-center px-6 sm:px-8 md:px-16 lg:px-24 py-32">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="max-w-6xl text-center"
-        >
-          {/* Tagline */}
-          <motion.p
-            className="text-mono text-sm sm:text-base uppercase tracking-[0.3em] text-[#E8744F] font-medium mb-6"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 md:px-16 lg:px-24">
+        <div className="max-w-3xl">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
           >
-            Tu Próxima Gran Aventura Empieza Aquí
-          </motion.p>
+            <span className="inline-block px-4 py-1.5 rounded-full bg-[#E8744F]/20 text-[#E8744F] text-sm font-bold tracking-widest uppercase mb-8 backdrop-blur-md border border-[#E8744F]/30">
+              Expediciones Personalizadas
+            </span>
+          </motion.div>
 
-          {/* Main Heading */}
           <motion.h1
-            className="text-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white leading-[1.1] mb-8 tracking-tight"
-            initial={{ opacity: 0, y: 40 }}
+            className="text-display text-5xl sm:text-7xl md:text-8xl font-black text-white leading-[1.05] mb-8 tracking-tight"
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            Tú pones la camioneta, nosotros el <span className="text-[#E8744F]">plan perrón</span>
+            Tu libertad tiene un mapa. <br />
+            <span className="text-[#E8744F]">Nosotros lo trazamos.</span>
           </motion.h1>
 
-          {/* Subheading */}
           <motion.p
-            className="text-heading text-xl sm:text-2xl md:text-3xl text-white/95 font-semibold mb-6"
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-          >
-            Expertos en Parques Nacionales de EE.UU.
-          </motion.p>
-
-          {/* Description */}
-          <motion.p
-            className="text-lg sm:text-xl text-white/80 mb-12 max-w-3xl mx-auto font-light leading-relaxed"
-            initial={{ opacity: 0, y: 40 }}
+            className="text-xl sm:text-2xl text-white/80 mb-12 font-light leading-relaxed max-w-2xl"
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            Diseñamos tu ruta personalizada a Yosemite, Zion, Gran Cañón y más. 
-            Sin complicaciones, sin perder tiempo investigando y con soporte real durante tu viaje.
+            Diseñamos expediciones a medida por los Parques Nacionales de EE.UU. 
+            Logística impecable, rutas expertas y soporte total para que tú solo te preocupes por el camino.
           </motion.p>
 
-          {/* Philosophy */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.7 }}
-            className="mb-12"
-          >
-            <p className="text-2xl sm:text-3xl font-bold text-[#E8744F] italic">
-              "Aquí nadie se pierde… nomás se encuentra."
-            </p>
-          </motion.div>
-
-          {/* CTA Buttons */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8"
+            className="flex flex-col sm:flex-row gap-5"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
           >
             <Button
               onClick={onStartPlanning}
               size="lg"
-              className="bg-[#E8744F] hover:bg-[#E8744F]/90 text-white px-12 sm:px-16 py-7 sm:py-8 text-lg sm:text-xl font-bold transition-all duration-300 hover:scale-105 hover:shadow-[0_8px_32px_rgba(232,116,79,0.5)] rounded-xl shadow-[0_4px_24px_rgba(232,116,79,0.3)]"
+              className="bg-[#E8744F] hover:bg-[#d65a35] text-white px-10 py-8 text-xl font-bold rounded-2xl shadow-2xl transition-all hover:scale-105 group"
             >
-              <Compass className="w-6 h-6 mr-3" />
               Cotizar Mi Aventura
+              <ArrowRight className="ml-2 w-6 h-6 group-hover:translate-x-1 transition-transform" />
             </Button>
+            
             <Button
               onClick={() => {
                 const element = document.getElementById('destinos');
-                if (element) {
-                  element.scrollIntoView({ behavior: 'smooth' });
-                }
+                if (element) element.scrollIntoView({ behavior: 'smooth' });
               }}
               size="lg"
               variant="outline"
-              className="border-2 border-white/80 text-white hover:bg-white/10 hover:border-white px-12 sm:px-16 py-7 sm:py-8 text-lg sm:text-xl font-bold transition-all duration-300 rounded-xl backdrop-blur-sm"
+              className="border-2 border-white/30 text-white hover:bg-white/10 px-10 py-8 text-xl font-bold rounded-2xl backdrop-blur-sm transition-all"
             >
-              <MapPin className="w-6 h-6 mr-3" />
               Ver Destinos
             </Button>
           </motion.div>
-        </motion.div>
 
-        {/* Benefits Cards */}
-        <motion.div
-          initial={{ opacity: 0, y: 60 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1 }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-20 max-w-6xl w-full"
-        >
-          {benefits.map((benefit, index) => (
-            <motion.div
-              key={benefit.title}
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 1.2 + index * 0.1 }}
-            >
-              <Card className="bg-white/95 backdrop-blur-sm p-8 text-center hover:shadow-[0_12px_40px_rgba(10,37,64,0.15)] transition-all duration-300 hover:-translate-y-2 rounded-xl border-0 h-full">
-                <div className="w-16 h-16 bg-[#2D5F3F]/10 rounded-full flex items-center justify-center mx-auto mb-5">
-                  <benefit.icon className="w-8 h-8 text-[#2D5F3F]" />
-                </div>
-                <h3 className="text-heading text-xl font-bold text-[#0A2540] mb-3">
-                  {benefit.title}
-                </h3>
-                <p className="text-[#2C3E50]/70 text-base leading-relaxed">
-                  {benefit.description}
-                </p>
-              </Card>
-            </motion.div>
-          ))}
-        </motion.div>
+          {/* Trust Badges */}
+          <motion.div 
+            className="mt-16 flex flex-wrap gap-8 items-center opacity-60 grayscale hover:grayscale-0 transition-all duration-500"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.6 }}
+            transition={{ duration: 1, delay: 1.2 }}
+          >
+            <div className="flex items-center gap-2 text-white">
+              <Compass className="w-5 h-5" />
+              <span className="text-sm font-medium tracking-wider uppercase">Rutas Expertas</span>
+            </div>
+            <div className="flex items-center gap-2 text-white">
+              <Shield className="w-5 h-5" />
+              <span className="text-sm font-medium tracking-wider uppercase">Soporte 24/7</span>
+            </div>
+            <div className="flex items-center gap-2 text-white">
+              <MapPin className="w-5 h-5" />
+              <span className="text-sm font-medium tracking-wider uppercase">Logística Total</span>
+            </div>
+          </motion.div>
+        </div>
       </div>
+
+      {/* Scroll Indicator */}
+      <motion.div 
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2, duration: 1 }}
+      >
+        <div className="w-6 h-10 border-2 border-white/20 rounded-full flex justify-center p-1">
+          <motion.div 
+            animate={{ y: [0, 12, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity }}
+            className="w-1 h-2 bg-white/60 rounded-full"
+          />
+        </div>
+      </motion.div>
     </section>
   );
 }
