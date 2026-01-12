@@ -2,7 +2,6 @@ import { motion } from 'framer-motion';
 import { Compass, MapPin, Shield, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import CertificationBadge from './CertificationBadge';
 
 interface HeroProps {
   onStartPlanning: () => void;
@@ -12,18 +11,18 @@ export default function Hero({ onStartPlanning }: HeroProps) {
   const benefits = [
     {
       icon: Compass,
-      title: 'Basado en Experiencia Real',
-      description: 'Itinerarios probados en primera persona, no copiados de internet',
+      title: 'Rutas Probadas',
+      description: 'Itinerarios diseñados con experiencia real en el terreno, no solo mapas.',
     },
     {
       icon: Sparkles,
-      title: 'Personalizado a Tu Ritmo',
-      description: 'Ajustamos cada día según tu nivel de fitness y estilo de viaje',
+      title: 'Plan a Tu Medida',
+      description: 'Ajustamos cada día según tu ritmo, presupuesto y estilo de aventura.',
     },
     {
       icon: Shield,
-      title: 'Transparencia Total',
-      description: 'Desglose detallado de costos sin sorpresas ni comisiones ocultas',
+      title: 'Cero Estrés',
+      description: 'Nosotros vemos los permisos y la logística; tú solo manejas y disfrutas.',
     },
   ];
 
@@ -51,11 +50,6 @@ export default function Hero({ onStartPlanning }: HeroProps) {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="max-w-6xl text-center"
         >
-          {/* Certification Badge */}
-          <div className="mb-6">
-            <CertificationBadge />
-          </div>
-
           {/* Tagline */}
           <motion.p
             className="text-mono text-sm sm:text-base uppercase tracking-[0.3em] text-[#E8744F] font-medium mb-6"
@@ -63,7 +57,7 @@ export default function Hero({ onStartPlanning }: HeroProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            Tu Arquitecto de Aventuras
+            Tu Próxima Gran Aventura Empieza Aquí
           </motion.p>
 
           {/* Main Heading */}
@@ -73,8 +67,7 @@ export default function Hero({ onStartPlanning }: HeroProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            Diseñamos tu viaje perfecto a{' '}
-            <span className="text-[#E8744F]">Parques Nacionales</span>
+            Tú pones la camioneta, nosotros el <span className="text-[#E8744F]">plan perrón</span>
           </motion.h1>
 
           {/* Subheading */}
@@ -84,7 +77,7 @@ export default function Hero({ onStartPlanning }: HeroProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
           >
-            Desde Tecate, Baja California hasta Yosemite, Zion y Gran Cañón
+            Expertos en Parques Nacionales de EE.UU.
           </motion.p>
 
           {/* Description */}
@@ -94,9 +87,8 @@ export default function Hero({ onStartPlanning }: HeroProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            Planificación personalizada por un agente de viajes certificado con experiencia real.
-            <br className="hidden sm:block" />
-            Tú solo manejas y disfrutas. Nosotros nos encargamos del resto.
+            Diseñamos tu ruta personalizada a Yosemite, Zion, Gran Cañón y más. 
+            Sin complicaciones, sin perder tiempo investigando y con soporte real durante tu viaje.
           </motion.p>
 
           {/* Philosophy */}
@@ -124,7 +116,7 @@ export default function Hero({ onStartPlanning }: HeroProps) {
               className="bg-[#E8744F] hover:bg-[#E8744F]/90 text-white px-12 sm:px-16 py-7 sm:py-8 text-lg sm:text-xl font-bold transition-all duration-300 hover:scale-105 hover:shadow-[0_8px_32px_rgba(232,116,79,0.5)] rounded-xl shadow-[0_4px_24px_rgba(232,116,79,0.3)]"
             >
               <Compass className="w-6 h-6 mr-3" />
-              Planear Mi Aventura
+              Cotizar Mi Aventura
             </Button>
             <Button
               onClick={() => {
@@ -140,20 +132,6 @@ export default function Hero({ onStartPlanning }: HeroProps) {
               <MapPin className="w-6 h-6 mr-3" />
               Ver Destinos
             </Button>
-          </motion.div>
-
-          {/* Founder Offer Banner */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.9 }}
-            className="inline-block"
-          >
-            <div className="bg-[#2D5F3F] text-white px-6 py-3 rounded-full shadow-[0_4px_24px_rgba(45,95,63,0.4)]">
-              <p className="text-sm sm:text-base font-bold">
-                🎯 Oferta Fundador: Paquete Compañero a <span className="text-[#E8744F]">$199 USD</span> (valor $299) • Solo 3 espacios
-              </p>
-            </div>
           </motion.div>
         </motion.div>
 
@@ -186,8 +164,6 @@ export default function Hero({ onStartPlanning }: HeroProps) {
           ))}
         </motion.div>
       </div>
-
-
     </section>
   );
 }
