@@ -6,7 +6,7 @@ import react from "@vitejs/plugin-react-swc";
 export default defineConfig({
   base: process.env.NODE_ENV === "development" ? "/" : process.env.VITE_BASE_PATH || "/",
   optimizeDeps: {
-    entries: ["src/main.tsx", "src/tempobook/**/*"],
+    entries: ["src/main.tsx"],
     exclude: [],
     include: [
       'react',
@@ -14,6 +14,19 @@ export default defineConfig({
       'react-router-dom',
       '@supabase/supabase-js',
     ],
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+          'ui-vendor': ['framer-motion', 'lucide-react'],
+          'form-vendor': ['react-hook-form', '@hookform/resolvers', 'zod'],
+        },
+      },
+    },
+    chunkSizeWarningLimit: 1000,
+    sourcemap: false,
   },
   plugins: [
     react(),
@@ -25,7 +38,6 @@ export default defineConfig({
     },
   },
   server: {
-    // @ts-ignore
-    allowedHosts: true,
+    host: true,
   }
 });

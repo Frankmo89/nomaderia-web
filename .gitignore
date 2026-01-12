@@ -40,3 +40,10 @@ core
 
 # Test files
 test-email.js
+
+# ESLint
+.eslintcache
+
+# Build info
+.vercel
+.turbo

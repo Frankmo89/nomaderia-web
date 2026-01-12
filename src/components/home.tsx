@@ -12,6 +12,7 @@ import AdventureForm, { FormData } from './AdventureForm';
 import LoadingState from './LoadingState';
 import ItineraryResults from './ItineraryResults';
 import Footer from './Footer';
+import { logger } from '../lib/logger';
 
 export interface ItineraryData {
   itinerary_text?: string;
@@ -81,7 +82,7 @@ export default function Home() {
         console.error('Error guardando en Supabase:', supabaseError);
         // No lanzamos error aquí para no bloquear el flujo si Supabase falla
       } else {
-        console.log('Lead guardado exitosamente en Supabase');
+        logger.log('Lead guardado exitosamente en Supabase');
       }
     } catch (err) {
       console.error('Error de conexión con Supabase:', err);

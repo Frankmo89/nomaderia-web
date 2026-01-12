@@ -1,10 +1,13 @@
-import { Suspense, useState, useEffect } from "react";
+import { Suspense, useState, useEffect, lazy } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
-import Home from "./components/home";
-import ServiciosPage from "./components/ServiciosPage";
-import AdminLogin from "./components/AdminLogin";
-import AdminDashboard from "./components/AdminDashboard";
-import BlogPost from "./components/BlogPost";
+import LoadingState from "./components/LoadingState";
+
+// Lazy load components for better code splitting
+const Home = lazy(() => import("./components/home"));
+const ServiciosPage = lazy(() => import("./components/ServiciosPage"));
+const AdminLogin = lazy(() => import("./components/AdminLogin"));
+const AdminDashboard = lazy(() => import("./components/AdminDashboard"));
+const BlogPost = lazy(() => import("./components/BlogPost"));
 
 function ServiciosWrapper() {
   const navigate = useNavigate();
@@ -40,7 +43,7 @@ function AdminPage() {
 
 function App() {
   return (
-    <Suspense fallback={<p>Loading...</p>}>
+    <Suspense fallback={<LoadingState />}>
       <>
         <Routes>
           <Route path="/" element={<Home />} />
