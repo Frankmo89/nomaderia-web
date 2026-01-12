@@ -1,5 +1,11 @@
+// ============================================
+// NOMADERIA: Cliente Supabase
+// Propósito: Conexión a tu backend
+// ============================================
+
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
+// Estas variables vienen de .env (usando Vite)
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
@@ -17,7 +23,20 @@ const createMockClient = () => ({
 
 export const supabase: SupabaseClient | ReturnType<typeof createMockClient> = 
   supabaseUrl && supabaseAnonKey 
-    ? createClient(supabaseUrl, supabaseAnonKey)
+    ? createClient(supabaseUrl, supabaseAnonKey, {
+        auth: {
+          persistSession: true,
+          autoRefreshToken: true,
+        },
+        db: {
+          schema: 'public'
+        },
+        global: {
+          headers: {
+            'X-Client-Info': 'nomaderia-web'
+          }
+        }
+      })
     : createMockClient() as any;
 
 export interface Article {
