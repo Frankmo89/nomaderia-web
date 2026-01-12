@@ -1,11 +1,11 @@
 // ============================================
-// NOMADERIA: Cliente Supabase
-// Propósito: Conexión a tu backend
+// NOMADERIA: Supabase Client
+// Purpose: Connection to backend
 // ============================================
 
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
-// Estas variables vienen de .env (usando Vite)
+// These variables come from .env (using Vite)
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
