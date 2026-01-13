@@ -14,11 +14,17 @@ import { EventType, NewInteraction } from '@/types/supabase';
 
 // Generar/obtener session_id persistente
 const getSessionId = (): string => {
+  // SSR guard - solo funciona en el navegador
+  if (typeof window === 'undefined') {
+    return 'ssr-temp-id';
+  }
+  
   // Persiste durante toda la sesión del browser
   let sessionId = sessionStorage.getItem('nomaderia_session_id');
   
   if (!sessionId) {
     // Generar nuevo UUID con fallback para navegadores antiguos
+    // El fallback es suficiente para IDs de sesión (no necesita ser criptográfico)
     sessionId = crypto?.randomUUID?.() || 
       `${Date.now()}-${Math.random().toString(36).substring(2, 15)}`;
     sessionStorage.setItem('nomaderia_session_id', sessionId);
@@ -29,6 +35,9 @@ const getSessionId = (): string => {
 
 // Detectar tipo de dispositivo
 const getDeviceType = (): 'mobile' | 'tablet' | 'desktop' => {
+  // SSR guard
+  if (typeof window === 'undefined') return 'desktop';
+  
   const width = window.innerWidth;
   if (width < 768) return 'mobile';
   if (width < 1024) return 'tablet';
@@ -60,8 +69,12 @@ export const useTracking = () => {
     eventType: EventType,
     eventData?: Record<string, any>
   ) => {
+    // SSR guard - solo trackear en el navegador
+    if (typeof window === 'undefined') return;
+    
     try {
-      // Obtener usuario si está logueado (verificar si supabase tiene auth)
+      // Obtener usuario si está logueado
+      // Nota: Verificamos 'auth' in supabase porque el mock client no tiene auth
       let userId: string | undefined;
       if ('auth' in supabase) {
         const { data: { user } } = await supabase.auth.getUser();
@@ -96,6 +109,9 @@ export const useTracking = () => {
 
   // Helper específico para page views
   const trackPageView = useCallback(() => {
+    // SSR guard
+    if (typeof window === 'undefined') return;
+    
     trackEvent('page_view', {
       title: document.title,
       path: window.location.pathname,
