@@ -4,7 +4,7 @@
 // Uso: const { trackEvent } = useTracking();
 // ============================================
 
-import { useEffect, useCallback } from 'react';
+import { useEffect, useCallback, useRef } from 'react';
 import { supabase } from '@/lib/supabase';
 import { EventType, NewInteraction } from '@/types/supabase';
 
@@ -18,8 +18,9 @@ const getSessionId = (): string => {
   let sessionId = sessionStorage.getItem('nomaderia_session_id');
   
   if (!sessionId) {
-    // Generar nuevo UUID
-    sessionId = crypto.randomUUID();
+    // Generar nuevo UUID con fallback para navegadores antiguos
+    sessionId = crypto?.randomUUID?.() || 
+      `${Date.now()}-${Math.random().toString(36).substring(2, 15)}`;
     sessionStorage.setItem('nomaderia_session_id', sessionId);
   }
   
@@ -52,11 +53,7 @@ const getUtmParams = () => {
 
 export const useTracking = () => {
   const sessionId = getSessionId();
-
-  // Track page view automático al montar componente
-  useEffect(() => {
-    trackPageView();
-  }, []); // Solo una vez por componente
+  const hasTrackedPageView = useRef(false);
 
   // Función para trackear eventos generales
   const trackEvent = useCallback(async (
@@ -64,7 +61,7 @@ export const useTracking = () => {
     eventData?: Record<string, any>
   ) => {
     try {
-      // Obtener usuario si está logueado
+      // Obtener usuario si está logueado (verificar si supabase tiene auth)
       let userId: string | undefined;
       if ('auth' in supabase) {
         const { data: { user } } = await supabase.auth.getUser();
@@ -104,6 +101,14 @@ export const useTracking = () => {
       path: window.location.pathname,
     });
   }, [trackEvent]);
+
+  // Track page view automático al montar componente (solo una vez)
+  useEffect(() => {
+    if (!hasTrackedPageView.current) {
+      trackPageView();
+      hasTrackedPageView.current = true;
+    }
+  }, [trackPageView]);
 
   return { 
     trackEvent, 
