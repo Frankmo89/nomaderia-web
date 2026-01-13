@@ -44,8 +44,8 @@ CREATE POLICY "Allow authenticated update" ON leads
   USING (true)
   WITH CHECK (true);
 
--- Function to update updated_at timestamp
-CREATE OR REPLACE FUNCTION update_leads_updated_at()
+-- Function to update updated_at timestamp (reusable for any table)
+CREATE OR REPLACE FUNCTION update_updated_at_column()
 RETURNS TRIGGER AS $$
 BEGIN
   NEW.updated_at = NOW();
@@ -58,4 +58,4 @@ DROP TRIGGER IF EXISTS leads_updated_at_trigger ON leads;
 CREATE TRIGGER leads_updated_at_trigger
   BEFORE UPDATE ON leads
   FOR EACH ROW
-  EXECUTE FUNCTION update_leads_updated_at();
+  EXECUTE FUNCTION update_updated_at_column();

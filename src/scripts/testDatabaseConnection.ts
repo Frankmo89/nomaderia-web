@@ -170,7 +170,7 @@ async function testDatabaseConnection() {
   try {
     const { data: testConnection, error: connectionError } = await supabase
       .from('leads')
-      .select('count')
+      .select('id')
       .limit(1);
 
     if (connectionError) {

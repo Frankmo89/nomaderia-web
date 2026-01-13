@@ -10,7 +10,7 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "types:supabase": "npx supabase gen types typescript --project-id $SUPABASE_PROJECT_ID > src/types/supabase.ts",
-    "test:db": "node --loader tsx src/scripts/testDatabaseConnection.ts"
+    "test:db": "node src/scripts/testDatabaseConnection.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.6.0",
