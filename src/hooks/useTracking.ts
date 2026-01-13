@@ -4,7 +4,7 @@
 // Uso: const { trackEvent } = useTracking();
 // ============================================
 
-import { useEffect, useCallback, useRef } from 'react';
+import { useEffect, useCallback, useRef, useMemo } from 'react';
 import { supabase } from '@/lib/supabase';
 import { EventType, NewInteraction } from '@/types/supabase';
 
@@ -63,6 +63,9 @@ const getUtmParams = () => {
 export const useTracking = () => {
   const sessionId = getSessionId();
   const hasTrackedPageView = useRef(false);
+  
+  // Memoizar UTM params para evitar parsear la URL en cada evento
+  const utmParams = useMemo(() => getUtmParams(), []);
 
   // Función para trackear eventos generales
   const trackEvent = useCallback(async (
@@ -75,6 +78,7 @@ export const useTracking = () => {
     try {
       // Obtener usuario si está logueado
       // Nota: Verificamos 'auth' in supabase porque el mock client no tiene auth
+      // Esta es una solución temporal hasta tener un cliente Supabase real configurado
       let userId: string | undefined;
       if ('auth' in supabase) {
         const { data: { user } } = await supabase.auth.getUser();
@@ -87,7 +91,7 @@ export const useTracking = () => {
         event_type: eventType,
         event_data: {
           ...eventData,
-          ...getUtmParams(),  // Incluir UTM params siempre
+          ...utmParams,  // Incluir UTM params (memoizados)
         },
         page_url: window.location.href,
         referrer: document.referrer || undefined,
@@ -105,7 +109,7 @@ export const useTracking = () => {
       // No bloquear la app si falla tracking
       console.error('Tracking failed:', error);
     }
-  }, [sessionId]);
+  }, [sessionId, utmParams]);
 
   // Helper específico para page views
   const trackPageView = useCallback(() => {
