@@ -4,7 +4,9 @@ import Navigation from './Navigation';
 import Hero from './Hero';
 import Destinations from './Destinations';
 import Gallery from './Gallery';
-import TripCalculator from './TripCalculator';
+import SmartQuoter, { Destination } from './SmartQuoter';
+import TripDetail from './TripDetail';
+import { supabase } from '../lib/supabase';
 import WhatsAppWidget from './WhatsAppWidget';
 import MyYosemiteStory from './MyYosemiteStory';
 import TravelBlog from './TravelBlog';
@@ -38,6 +40,20 @@ export default function Home() {
   const [formData, setFormData] = useState<FormData | null>(null);
   const [itineraryData, setItineraryData] = useState<ItineraryData | null>(null);
   const [error, setError] = useState<string | null>(null);
+  // Estado para destinos reales y modal de detalle
+  const [destinations, setDestinations] = useState<Destination[]>([]);
+  const [selectedDestination, setSelectedDestination] = useState<Destination | null>(null);
+
+  useEffect(() => {
+    async function fetchDestinations() {
+      const { data, error } = await supabase
+        .from('destinations')
+        .select('*')
+        .order('name', { ascending: true });
+      if (!error && data) setDestinations(data as Destination[]);
+    }
+    fetchDestinations();
+  }, []);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const formRef = useRef<HTMLDivElement>(null);
 
@@ -262,15 +278,25 @@ export default function Home() {
       {appState === 'hero' && (
         <>
           <Hero onStartPlanning={handleStartPlanning} />
+          <div id="cotizador" className="mb-12">
+            <SmartQuoter destinations={destinations} />
+          </div>
           <div id="destinos">
-            <Destinations onSelectDestination={handleStartPlanning} />
+            <Destinations
+              onSelectDestination={name => {
+                const found = destinations.find(d => d.name === name);
+                if (found) setSelectedDestination(found);
+              }}
+            />
           </div>
           <MyYosemiteStory />
-          <TripCalculator />
           <Gallery />
           <TravelBlog />
           <Footer />
           <WhatsAppWidget />
+          {selectedDestination && (
+            <TripDetail destination={selectedDestination} onClose={() => setSelectedDestination(null)} />
+          )}
         </>
       )}
 
