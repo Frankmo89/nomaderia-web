@@ -12,7 +12,7 @@ export default function Destinations({ onSelectDestination }: DestinationsProps)
     {
       name: 'Yosemite',
       tagline: 'Cataratas épicas y el icónico Half Dome',
-      image: '/images/parks/yosemite/hero.jpg',
+      image: '/images/parks/yosemite/hero.webp',
       icon: Mountain,
       highlights: ['Half Dome', 'Yosemite Falls', 'El Capitan', 'Mirror Lake'],
       distance: '750 km desde Tijuana',
@@ -22,7 +22,7 @@ export default function Destinations({ onSelectDestination }: DestinationsProps)
     {
       name: 'Gran Cañón',
       tagline: 'Una de las 7 maravillas naturales del mundo',
-      image: '/images/parks/grand-canyon/hero.jpg',
+      image: '/images/parks/grand-canyon/hero.webp',
       icon: Waves,
       highlights: ['South Rim', 'Bright Angel Trail', 'Sunset Point', 'Desert View'],
       distance: '900 km desde Tijuana',
@@ -32,7 +32,7 @@ export default function Destinations({ onSelectDestination }: DestinationsProps)
     {
       name: 'Zion',
       tagline: 'Cañones rojos y aventuras verticales',
-      image: '/images/parks/zion/hero.jpg',
+      image: '/images/parks/zion/hero.webp',
       icon: Sun,
       highlights: ['Angels Landing', 'The Narrows', 'Emerald Pools', 'Canyon Overlook'],
       distance: '1,100 km desde Tijuana',
@@ -42,7 +42,7 @@ export default function Destinations({ onSelectDestination }: DestinationsProps)
     {
       name: 'Sequoia',
       tagline: 'Los árboles más grandes del planeta',
-      image: '/images/parks/sequoia/hero.jpg',
+      image: '/images/parks/sequoia/hero.webp',
       icon: TreePine,
       highlights: ['General Sherman Tree', 'Moro Rock', 'Giant Forest', 'Tokopah Falls'],
       distance: '700 km desde Tijuana',

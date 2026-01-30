@@ -1,3 +1,15 @@
+# ---
+# title: "Presupuesto Real: ¿Cuánto Cuesta Yosemite desde Tecate?"
+# description: "Desglose detallado de costos reales para un viaje de 3 días a Yosemite desde Baja California."
+# keywords:
+#   - Yosemite
+#   - presupuesto
+#   - costos
+#   - Tecate
+#   - viaje
+# slug: "presupuesto-yosemite-tecate"
+# ---
+
 # Presupuesto Real: ¿Cuánto Cuesta un Viaje a Yosemite desde Tecate?
 
 **Fecha:** 8 de enero de 2026  

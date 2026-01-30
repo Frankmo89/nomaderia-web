@@ -1,0 +1,42 @@
+[
+  {
+    "original": "public/images/hero/main.jpg",
+    "webp": "public/images/hero/main.webp"
+  },
+  {
+    "original": "public/images/parks/grand-canyon/hero.jpg",
+    "webp": "public/images/parks/grand-canyon/hero.webp"
+  },
+  {
+    "original": "public/images/parks/grand-canyon/sunset.jpg",
+    "webp": "public/images/parks/grand-canyon/sunset.webp"
+  },
+  {
+    "original": "public/images/parks/sequoia/hero.jpg",
+    "webp": "public/images/parks/sequoia/hero.webp"
+  },
+  {
+    "original": "public/images/parks/sequoia/trees.jpg",
+    "webp": "public/images/parks/sequoia/trees.webp"
+  },
+  {
+    "original": "public/images/parks/yosemite/half-dome.jpg",
+    "webp": "public/images/parks/yosemite/half-dome.webp"
+  },
+  {
+    "original": "public/images/parks/yosemite/hero.jpg",
+    "webp": "public/images/parks/yosemite/hero.webp"
+  },
+  {
+    "original": "public/images/parks/yosemite/valley.jpg",
+    "webp": "public/images/parks/yosemite/valley.webp"
+  },
+  {
+    "original": "public/images/parks/zion/canyon.jpg",
+    "webp": "public/images/parks/zion/canyon.webp"
+  },
+  {
+    "original": "public/images/parks/zion/hero.jpg",
+    "webp": "public/images/parks/zion/hero.webp"
+  }
+]
