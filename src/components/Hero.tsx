@@ -26,30 +26,30 @@ export default function Hero({ onStartPlanning }: HeroProps) {
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 md:px-16 lg:px-24">
         <div className="max-w-3xl">
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            initial={{ opacity: 0, y: 32 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.1, ease: 'easeOut' }}
           >
-            <span className="inline-block px-4 py-1.5 rounded-full bg-[#E8744F]/20 text-[#E8744F] text-sm font-bold tracking-widest uppercase mb-8 backdrop-blur-md border border-[#E8744F]/30">
+            <span className="inline-block px-4 py-1.5 rounded-full bg-[#E8744F]/20 text-[#E8744F] text-sm font-bold tracking-widest uppercase mb-8 backdrop-blur-md border border-[#E8744F]/30 transition-all duration-300 ease-out opacity-0 translate-y-8 motion-safe:animate-fade-in-up motion-reduce:transition-none motion-reduce:transform-none">
               Expediciones Personalizadas
             </span>
           </motion.div>
 
           <motion.h1
-            className="text-display text-5xl sm:text-7xl md:text-8xl font-black text-white leading-[1.05] mb-8 tracking-tight"
-            initial={{ opacity: 0, y: 30 }}
+            className="text-display text-5xl sm:text-7xl md:text-8xl font-black text-white leading-[1.05] mb-8 tracking-tight transition-all duration-300 ease-out opacity-0 translate-y-8 motion-safe:animate-fade-in-up motion-reduce:transition-none motion-reduce:transform-none"
+            initial={{ opacity: 0, y: 32 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            transition={{ duration: 0.4, delay: 0.2, ease: 'easeOut' }}
           >
             Tu libertad tiene un mapa. <br />
             <span className="text-[#E8744F]">Nosotros lo trazamos.</span>
           </motion.h1>
 
           <motion.p
-            className="text-xl sm:text-2xl text-white/80 mb-12 font-light leading-relaxed max-w-2xl"
-            initial={{ opacity: 0, y: 30 }}
+            className="text-xl sm:text-2xl text-white/80 mb-12 font-light leading-relaxed max-w-2xl transition-all duration-300 ease-out opacity-0 translate-y-8 motion-safe:animate-fade-in-up motion-reduce:transition-none motion-reduce:transform-none"
+            initial={{ opacity: 0, y: 32 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
+            transition={{ duration: 0.4, delay: 0.3, ease: 'easeOut' }}
           >
             Diseñamos expediciones a medida por los Parques Nacionales de EE.UU. 
             Logística impecable, rutas expertas y soporte total para que tú solo te preocupes por el camino.
@@ -57,19 +57,18 @@ export default function Hero({ onStartPlanning }: HeroProps) {
 
           <motion.div
             className="flex flex-col sm:flex-row gap-5"
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 32 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
+            transition={{ duration: 0.4, delay: 0.4, ease: 'easeOut' }}
           >
             <Button
               onClick={onStartPlanning}
               size="lg"
-              className="bg-[#E8744F] hover:bg-[#d65a35] text-white px-10 py-8 text-xl font-bold rounded-2xl shadow-2xl transition-all hover:scale-105 group"
+              className="bg-[#E8744F] hover:bg-[#d65a35] text-white px-10 py-8 text-xl font-bold rounded-2xl shadow-2xl transition-all duration-300 ease-out hover:scale-105 focus:scale-105 active:scale-100 opacity-0 translate-y-8 motion-safe:animate-fade-in-up motion-reduce:transition-none motion-reduce:transform-none group"
             >
               Cotizar Mi Aventura
-              <ArrowRight className="ml-2 w-6 h-6 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="ml-2 w-6 h-6 group-hover:translate-x-1 transition-transform duration-300 ease-out" />
             </Button>
-            
             <Button
               onClick={() => {
                 const element = document.getElementById('destinos');
@@ -77,7 +76,7 @@ export default function Hero({ onStartPlanning }: HeroProps) {
               }}
               size="lg"
               variant="outline"
-              className="border-2 border-white/30 text-white hover:bg-white/10 px-10 py-8 text-xl font-bold rounded-2xl backdrop-blur-sm transition-all"
+              className="border-2 border-white/30 text-white hover:bg-white/10 px-10 py-8 text-xl font-bold rounded-2xl backdrop-blur-sm transition-all duration-300 ease-out hover:scale-105 focus:scale-105 active:scale-100 opacity-0 translate-y-8 motion-safe:animate-fade-in-up motion-reduce:transition-none motion-reduce:transform-none"
             >
               Ver Destinos
             </Button>

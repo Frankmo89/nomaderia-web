@@ -1,6 +1,44 @@
+
 import { supabase } from './supabase';
 import type { NewLead } from '@/types/supabase';
 import type { FormData } from '@/components/AdventureForm';
+
+// Utilidades de validación y sanitización
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const PHONE_REGEX = /^[0-9\-+()\s]{7,20}$/;
+const NAME_REGEX = /^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\s.'-]{2,60}$/;
+const MAX_EMAIL_LENGTH = 120;
+const MAX_NAME_LENGTH = 60;
+const MAX_PHONE_LENGTH = 20;
+const MAX_BUDGET_LENGTH = 20;
+const MAX_DEST_LENGTH = 80;
+
+function sanitizeString(str?: string, maxLength = 100): string | undefined {
+  if (!str) return undefined;
+  // Elimina caracteres de control y recorta
+  return str.replace(/[<>"'`\\]/g, '').slice(0, maxLength).trim() || undefined;
+}
+
+function validateEmail(email?: string): string | undefined {
+  if (!email) return undefined;
+  const trimmed = email.trim().toLowerCase().slice(0, MAX_EMAIL_LENGTH);
+  if (!EMAIL_REGEX.test(trimmed)) return undefined;
+  return trimmed;
+}
+
+function validatePhone(phone?: string): string | undefined {
+  if (!phone) return undefined;
+  const trimmed = phone.trim().slice(0, MAX_PHONE_LENGTH);
+  if (!PHONE_REGEX.test(trimmed)) return undefined;
+  return trimmed;
+}
+
+function validateName(name?: string): string | undefined {
+  if (!name) return undefined;
+  const trimmed = name.trim().slice(0, MAX_NAME_LENGTH);
+  if (!NAME_REGEX.test(trimmed)) return undefined;
+  return trimmed;
+}
 
 function mapAccommodation(pref?: string): NewLead['accommodation_type'] | undefined {
   if (!pref) return undefined;
@@ -24,37 +62,38 @@ function readUtmFromLocation(): { utm_source?: string; utm_medium?: string; utm_
   }
 }
 
-export async function submitLeadToSupabase(formData: FormData): Promise<void> {
-  // Build payload matching NewLead (see src/types/supabase.ts)
-  const party_size = (formData.adultscount || 0) + (formData.childrencount || 0);
-  const travel_dates = formData.preferreddeparturedate
-    ? formData.preferreddeparturedate
-    : formData.travelmonth
-      ? formData.travelmonth
-      : undefined;
 
+export async function submitLeadToSupabase(formData: FormData): Promise<void> {
+  // Validar y sanitizar datos
+  const name = validateName(formData.clientname);
+  const email = validateEmail(formData.clientemail);
+  const phone = validatePhone(formData.phonewhatsapp);
+  const preferred_destination = sanitizeString(formData.primarydestination, MAX_DEST_LENGTH);
+  const budget_range = sanitizeString(formData.budgetusdperperson, MAX_BUDGET_LENGTH);
+  const travel_dates = sanitizeString(
+    formData.preferreddeparturedate || formData.travelmonth,
+    40
+  );
+  const party_size = (formData.adultscount || 0) + (formData.childrencount || 0);
   const utm = readUtmFromLocation();
 
+  // Rechazar si datos críticos no son válidos
+  if (!email) throw new Error('Correo electrónico inválido.');
+  if (name && name.length < 2) throw new Error('Nombre inválido.');
+
   const newLead: NewLead = {
-    // contacto
-    name: formData.clientname || undefined,
-    email: formData.clientemail || undefined,
-    phone: formData.phonewhatsapp || undefined,
-
-    // tracking / origen
+    name,
+    email,
+    phone,
     source: 'form',
-    utm_source: utm.utm_source,
-    utm_medium: utm.utm_medium,
-    utm_campaign: utm.utm_campaign,
-
-    // info de viaje
-    preferred_destination: formData.primarydestination || undefined,
-    budget_range: formData.budgetusdperperson || undefined,
-    travel_dates: travel_dates || undefined,
+    utm_source: sanitizeString(utm.utm_source, 40),
+    utm_medium: sanitizeString(utm.utm_medium, 40),
+    utm_campaign: sanitizeString(utm.utm_campaign, 40),
+    preferred_destination,
+    budget_range,
+    travel_dates,
     party_size: party_size || undefined,
     accommodation_type: mapAccommodation(formData.accommodationpreference),
-
-    // crm / metadata
     lead_score: typeof formData.leadscore === 'number' ? formData.leadscore : undefined,
     status: 'new',
     last_interaction_at: new Date().toISOString(),
@@ -67,8 +106,6 @@ export async function submitLeadToSupabase(formData: FormData): Promise<void> {
       console.error('Supabase insert error (leads):', error);
       throw error;
     }
-
-    // opcional: data contiene la fila insertada (incluye id y created_at)
     return;
   } catch (err) {
     // log y rethrow

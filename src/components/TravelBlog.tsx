@@ -152,7 +152,7 @@ export default function TravelBlog() {
                     </div>
                     <a 
                       href={`/blog/${post.slug}`}
-                      className="inline-block mt-6 text-[#2D5F3F] hover:text-[#E8744F] font-bold text-sm transition-colors"
+                      className="inline-block mt-6 font-bold text-sm text-[#2D5F3F] transition-all hover:text-[#E8744F] focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 active:scale-95 hover:scale-105 hover:shadow-xl outline-none"
                     >
                       Leer más →
                     </a>

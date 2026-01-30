@@ -152,10 +152,10 @@ export default function AdminLeads() {
                       <div className="lg:hidden">{getStatusIcon(lead.status)}</div>
                     </div>
                     <div className="flex flex-wrap gap-3 text-sm text-white/60">
-                      <a href={`mailto:${lead.clientemail}`} className="flex items-center gap-1 hover:text-[#E8744F]">
+                      <a href={`mailto:${lead.clientemail}`} className="flex items-center gap-1 font-medium transition-all hover:text-[#E8744F] focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 active:scale-95 hover:scale-105 hover:shadow-xl outline-none">
                         <Mail className="w-3 h-3" /> {lead.clientemail}
                       </a>
-                      <a href={`https://wa.me/${lead.phonewhatsapp.replace(/\D/g,'')}`} className="flex items-center gap-1 hover:text-green-400">
+                      <a href={`https://wa.me/${lead.phonewhatsapp.replace(/\D/g,'')}`} className="flex items-center gap-1 font-medium transition-all hover:text-green-400 focus-visible:ring-2 focus-visible:ring-green-400/60 focus-visible:ring-offset-2 active:scale-95 hover:scale-105 hover:shadow-xl outline-none">
                         <Phone className="w-3 h-3" /> {lead.phonewhatsapp}
                       </a>
                     </div>

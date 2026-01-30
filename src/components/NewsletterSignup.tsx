@@ -39,71 +39,86 @@ export default function NewsletterSignup() {
       status: 'new',
       created_at: new Date().toISOString(),
     } as NewLead;
+    const MAX_EMAIL_LENGTH = 120;
+    const sanitizeEmail = (raw: string) => raw.trim().toLowerCase().replace(/[<>"'`\\]/g, '').slice(0, MAX_EMAIL_LENGTH);
 
-    try {
-      const { data, error: supaError } = await (supabase as any)
-        .from("leads")
-        .insert([newLead]);
+    const handleSubmit = async (e: React.FormEvent) => {
+      e.preventDefault();
+      if (loading) return; // Prevenir doble envío
+      setError(null);
+      setSuccess(false);
 
-      if (supaError) {
-        console.error("Supabase insert error:", supaError);
-        setError("No se pudo registrar el correo. Intenta nuevamente.");
+      const trimmed = sanitizeEmail(email);
+      if (!trimmed) {
         toast({
-          title: "Error al registrarte",
-          description: "No se pudo guardar tu correo. Intenta de nuevo.",
+          title: "Correo requerido",
+          description: "Por favor ingresa un correo electrónico.",
+          variant: "destructive",
         });
-      } else {
-        setSuccess(true);
-        setEmail("");
-        toast({
-          title: "¡Registro exitoso!",
-          description: "Gracias por suscribirte.",
-        });
+        setError("Por favor ingresa un correo electrónico.");
+        return;
       }
-    } catch (err) {
-      console.error(err);
-      setError("Ocurrió un error inesperado.");
-      toast({
-        title: "Error",
-        description: "Ocurrió un error inesperado.",
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
+      if (!EMAIL_REGEX.test(trimmed)) {
+        toast({
+          title: "Correo inválido",
+          description: "El correo ingresado no es válido.",
+          variant: "destructive",
+        });
+        setError("Correo inválido.");
+        return;
+      }
 
-  return (
-    <form
-      onSubmit={handleSubmit}
-      className="w-full max-w-md bg-white/60 dark:bg-slate-900/60 rounded-md p-4 shadow-sm"
-      aria-live="polite"
-    >
-      <div className="flex flex-col gap-2">
-        <Label htmlFor="newsletter-email">Suscríbete al newsletter</Label>
-        <div className="flex gap-2">
-          <Input
-            id="newsletter-email"
-            type="email"
-            placeholder="tucorreo@ejemplo.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            aria-invalid={!!error}
-            aria-describedby={error ? "newsletter-error" : undefined}
-            className="mr-0"
-          />
-          <Button type="submit" disabled={loading} className="shrink-0">
-            {loading ? "Enviando..." : "Suscribir"}
-          </Button>
+      setLoading(true);
+
+      const newLead: NewLead = {
+        email: trimmed,
+        source: "form",
+        status: 'new',
+        created_at: new Date().toISOString(),
+      } as NewLead;
+
+      try {
+        const { error: supaError } = await (supabase as any)
+          .from("leads")
+          .insert([newLead]);
+
+        if (supaError) {
+          // No mostrar detalles técnicos al usuario
+          toast({
+            title: "Error al registrarte",
+            description: "No se pudo guardar tu correo. Intenta de nuevo.",
+            variant: "destructive",
+          });
+          setError("No se pudo registrar el correo. Intenta nuevamente.");
+        } else {
+          setSuccess(true);
+          setEmail("");
+          toast({
+            title: "¡Registro exitoso!",
+            description: "Gracias por suscribirte.",
+            variant: "success",
+          });
+        }
+      } catch {
+        toast({
+          title: "Error inesperado",
+          description: "Ocurrió un error inesperado. Intenta más tarde.",
+          variant: "destructive",
+        });
+        setError("Ocurrió un error inesperado.");
+      } finally {
+        setLoading(false);
+      }
+    };
         </div>
 
         {error ? (
-          <p id="newsletter-error" className="text-sm text-destructive mt-1">
+          <p id="newsletter-error" className="text-sm text-destructive mt-1" aria-live="assertive">
             {error}
           </p>
         ) : null}
-
         {success ? (
-          <p className="text-sm text-green-600 mt-1">Gracias, verás novedades pronto.</p>
+          <p className="text-sm text-green-600 mt-1" aria-live="polite">Gracias, verás novedades pronto.</p>
         ) : null}
       </div>
     </form>

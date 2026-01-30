@@ -26,7 +26,7 @@ export default function Footer() {
             <div className="space-y-3">
               <a 
                 href="mailto:nomaderia.travel@gmail.com" 
-                className="flex items-center justify-center gap-2 text-white/80 hover:text-[#E8744F] transition-colors duration-300"
+                className="flex items-center justify-center gap-2 text-white/80 font-medium transition-all hover:text-[#E8744F] focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 active:scale-95 hover:scale-105 hover:shadow-xl outline-none"
               >
                 <Mail className="w-4 h-4" />
                 nomaderia.travel@gmail.com
