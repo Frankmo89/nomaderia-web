@@ -20,6 +20,7 @@ export default function TripCalculator() {
   const [email, setEmail] = useState('');
   const [showEmailForm, setShowEmailForm] = useState(false);
   const [emailSent, setEmailSent] = useState(false);
+  const [hasGreenCard, setHasGreenCard] = useState(false);
 
   // Costos base por noche según tipo de alojamiento y nivel de confort
   const accommodationCosts: Record<string, Record<string, number>> = {
@@ -43,23 +44,39 @@ export default function TripCalculator() {
     sequoia: 700
   };
 
+  // Parques caros (Big 11)
+  const expensiveParks = [
+    'yosemite',
+    'grand_canyon',
+    'zion',
+    'sequoia',
+    'bryce_canyon',
+    'glacier',
+    'grand_teton',
+    'rocky_mountain',
+    'olympic',
+    'acadia'
+  ];
+
   // Calcular costos
   const calculateCosts = (): TripCosts => {
     const accommodationCost = accommodationCosts[accommodation][comfort] * days;
     const foodCost = foodCosts[comfort] * days * people;
-    
     // Gasolina: distancia ida y vuelta, 12 km/litro, $1.20 USD/litro
     const distance = distances[destination];
     const gasCost = Math.round((distance * 2) / 12 * 1.2);
-    
-    // Entrada a parques: $100 USD por persona (turistas internacionales)
-    const parkEntryCost = 100 * people;
-    
+
+    // Entrada a parques: $100 USD por persona (turistas internacionales en parques caros)
+    let parkEntryCost = 0;
+    if (expensiveParks.includes(destination) && !hasGreenCard) {
+      parkEntryCost = 100 * people;
+    }
+
     // Permisos y reservas estimados
     const permitsCost = accommodation === 'camping' ? 50 : 30;
-    
+
     const total = accommodationCost + foodCost + gasCost + parkEntryCost + permitsCost;
-    
+
     return {
       accommodation: accommodationCost,
       food: foodCost,
@@ -146,6 +163,20 @@ export default function TripCalculator() {
               </div>
             </div>
 
+            {/* Green Card / Pasaporte USA */}
+            <div className="mb-6">
+              <label className="block text-slate-300 font-semibold mb-3">¿Cuentas con Green Card / Pasaporte USA?</label>
+              <div className="flex items-center gap-3">
+                <input
+                  type="checkbox"
+                  id="greenCardCheck"
+                  checked={hasGreenCard}
+                  onChange={() => setHasGreenCard((v) => !v)}
+                  className="accent-orange-500 w-5 h-5"
+                />
+                <label htmlFor="greenCardCheck" className="text-slate-200">Sí, soy residente o ciudadano</label>
+              </div>
+            </div>
             {/* Duración */}
             <div className="mb-6">
               <label className="block text-slate-300 font-semibold mb-3">

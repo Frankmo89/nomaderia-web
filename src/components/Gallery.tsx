@@ -89,7 +89,7 @@ export default function Gallery() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.05 }}
-                className="group relative aspect-square overflow-hidden rounded-xl cursor-pointer"
+                className="group relative aspect-square overflow-hidden rounded-xl cursor-pointer hover:scale-105 hover:shadow-xl transition-all duration-300 ease-out"
                 onClick={() => setSelectedImage(image.src)}
               >
                 <img

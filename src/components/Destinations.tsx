@@ -2,12 +2,17 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Mountain, TreePine, Waves, Sun } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import { SurchargeBadge, FreeTaxBadge } from './SurchargeBadges';
 
 interface DestinationsProps {
   onSelectDestination: (destination: string) => void;
 }
 
 export default function Destinations({ onSelectDestination }: DestinationsProps) {
+  // Big 11 parques caros
+  const expensiveParks = ['Yosemite', 'Gran Cañón', 'Zion', 'Sequoia'];
+  // Ejemplo: solo Sequoia es "libre de impuesto" para demo, puedes ajustar según seed real
+  const freeTaxParks = ['Sequoia'];
   const destinations = [
     {
       name: 'Yosemite',
@@ -18,6 +23,8 @@ export default function Destinations({ onSelectDestination }: DestinationsProps)
       distance: '750 km desde Tijuana',
       bestTime: 'Marzo - Mayo, Sept - Oct',
       difficulty: 'Moderado',
+      surcharge: expensiveParks.includes('Yosemite'),
+      freeTax: freeTaxParks.includes('Yosemite'),
     },
     {
       name: 'Gran Cañón',
@@ -28,6 +35,8 @@ export default function Destinations({ onSelectDestination }: DestinationsProps)
       distance: '900 km desde Tijuana',
       bestTime: 'Marzo - Mayo, Sept - Nov',
       difficulty: 'Fácil a Difícil',
+      surcharge: expensiveParks.includes('Gran Cañón'),
+      freeTax: freeTaxParks.includes('Gran Cañón'),
     },
     {
       name: 'Zion',
@@ -38,6 +47,8 @@ export default function Destinations({ onSelectDestination }: DestinationsProps)
       distance: '1,100 km desde Tijuana',
       bestTime: 'Abril - Mayo, Sept - Oct',
       difficulty: 'Moderado a Difícil',
+      surcharge: expensiveParks.includes('Zion'),
+      freeTax: freeTaxParks.includes('Zion'),
     },
     {
       name: 'Sequoia',
@@ -48,6 +59,8 @@ export default function Destinations({ onSelectDestination }: DestinationsProps)
       distance: '700 km desde Tijuana',
       bestTime: 'Mayo - Sept',
       difficulty: 'Fácil a Moderado',
+      surcharge: expensiveParks.includes('Sequoia'),
+      freeTax: freeTaxParks.includes('Sequoia'),
     },
   ];
 
@@ -84,7 +97,7 @@ export default function Destinations({ onSelectDestination }: DestinationsProps)
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
             >
-              <Card className="group relative overflow-hidden rounded-2xl shadow-[0_8px_32px_rgba(10,37,64,0.12)] hover:shadow-[0_16px_48px_rgba(10,37,64,0.2)] transition-all duration-500 border-0 h-full">
+              <Card className="group relative overflow-hidden rounded-2xl shadow-[0_8px_32px_rgba(10,37,64,0.12)] hover:shadow-xl hover:scale-105 transition-all duration-300 ease-out border-0 h-full">
                 {/* Image */}
                 <div className="relative h-80 overflow-hidden">
                   <img
@@ -101,8 +114,10 @@ export default function Destinations({ onSelectDestination }: DestinationsProps)
 
                   {/* Title & Tagline */}
                   <div className="absolute bottom-6 left-6 right-6">
-                    <h3 className="text-display text-4xl font-black text-white mb-2">
+                    <h3 className="text-display text-4xl font-black text-white mb-2 flex items-center">
                       {destination.name}
+                      {destination.freeTax && <FreeTaxBadge />}
+                      {destination.surcharge && !destination.freeTax && <SurchargeBadge />}
                     </h3>
                     <p className="text-lg text-white/90 font-medium">
                       {destination.tagline}

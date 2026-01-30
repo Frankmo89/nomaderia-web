@@ -266,6 +266,13 @@ export default function AdventureForm({ onSubmit, onBack, isLoading }: Adventure
 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [currentSection, setCurrentSection] = useState(1);
+  const [showSuccess, setShowSuccess] = useState(false);
+  useEffect(() => {
+    if (!isLoading && showSuccess) {
+      const timer = setTimeout(() => setShowSuccess(false), 3500);
+      return () => clearTimeout(timer);
+    }
+  }, [isLoading, showSuccess]);
 
   // Validación de email en tiempo real
   useEffect(() => {
@@ -427,7 +434,19 @@ export default function AdventureForm({ onSubmit, onBack, isLoading }: Adventure
   ];
 
   return (
-    <section className="min-h-screen bg-[#F8F6F3] noise-texture py-24 px-6 sm:px-8">
+    <section className="min-h-screen bg-[#F8F6F3] noise-texture py-24 px-6 sm:px-8 relative">
+      {/* Feedback de éxito flotante */}
+      {showSuccess && (
+        <motion.div
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -30 }}
+          className="fixed top-8 left-1/2 z-50 -translate-x-1/2 bg-green-500 text-white px-6 py-4 rounded-xl shadow-lg flex items-center gap-3 font-semibold text-lg"
+        >
+          <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+          ¡Solicitud enviada con éxito!
+        </motion.div>
+      )}
       <div className="max-w-3xl mx-auto">
         {/* Header */}
         <motion.div
@@ -439,7 +458,7 @@ export default function AdventureForm({ onSubmit, onBack, isLoading }: Adventure
           <Button
             onClick={onBack}
             variant="ghost"
-            className="text-[#2C3E50] hover:text-[#0A2540] mb-6"
+            className="text-[#2C3E50] mb-6 transition-all hover:text-[#0A2540] focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 active:scale-95 hover:scale-105 hover:shadow-xl outline-none"
           >
             <ChevronLeft className="w-5 h-5 mr-2" />
             Volver
@@ -460,13 +479,13 @@ export default function AdventureForm({ onSubmit, onBack, isLoading }: Adventure
               <button
                 key={index}
                 onClick={() => setCurrentSection(index + 1)}
-                className={`text-xs font-mono uppercase tracking-wider transition-colors ${
-                  currentSection === index + 1
+                className={`text-xs font-mono uppercase tracking-wider transition-all outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 active:scale-95 hover:scale-105 hover:shadow-xl
+                  ${currentSection === index + 1
                     ? 'text-[#2D5F3F] font-bold'
                     : currentSection > index + 1
                     ? 'text-[#2D5F3F]/60'
-                    : 'text-[#2C3E50]/40'
-                }`}
+                    : 'text-[#2C3E50]/40'}
+                `}
               >
                 {index + 1}
               </button>
@@ -519,7 +538,7 @@ export default function AdventureForm({ onSubmit, onBack, isLoading }: Adventure
                       placeholder="Tu nombre completo"
                       value={formData.clientname}
                       onChange={(e) => setFormData({ ...formData, clientname: e.target.value })}
-                      className={`text-lg py-6 ${errors.clientname ? 'border-red-500' : ''}`}
+                      className={`text-lg py-6 ${errors.clientname ? 'border-red-500' : ''} focus:ring-2 focus:ring-[#2D5F3F] focus:border-[#2D5F3F] transition-all`}
                       minLength={3}
                       required
                     />
@@ -539,7 +558,7 @@ export default function AdventureForm({ onSubmit, onBack, isLoading }: Adventure
                       placeholder="tu@email.com"
                       value={formData.clientemail}
                       onChange={(e) => setFormData({ ...formData, clientemail: e.target.value })}
-                      className={`text-lg py-6 ${errors.clientemail ? 'border-red-500' : ''}`}
+                      className={`text-lg py-6 ${errors.clientemail ? 'border-red-500' : ''} focus:ring-2 focus:ring-[#2D5F3F] focus:border-[#2D5F3F] transition-all`}
                       required
                     />
                     {errors.clientemail && (
@@ -558,7 +577,7 @@ export default function AdventureForm({ onSubmit, onBack, isLoading }: Adventure
                       placeholder="Ej: +52 664 123 4567"
                       value={formData.phonewhatsapp}
                       onChange={(e) => setFormData({ ...formData, phonewhatsapp: e.target.value })}
-                      className={`text-lg py-6 ${errors.phonewhatsapp ? 'border-red-500' : ''}`}
+                      className={`text-lg py-6 ${errors.phonewhatsapp ? 'border-red-500' : ''} focus:ring-2 focus:ring-[#2D5F3F] focus:border-[#2D5F3F] transition-all`}
                       required
                     />
                     <p className="text-[#2C3E50]/60 text-sm mt-1">Formato: código país + número (ej: 52 664 123 4567)</p>
@@ -607,7 +626,7 @@ export default function AdventureForm({ onSubmit, onBack, isLoading }: Adventure
                         placeholder="Cuéntanos..."
                         value={formData.leadsourceother}
                         onChange={(e) => setFormData({ ...formData, leadsourceother: e.target.value })}
-                        className={`text-lg py-6 ${errors.leadsourceother ? 'border-red-500' : ''}`}
+                        className={`text-lg py-6 ${errors.leadsourceother ? 'border-red-500' : ''} focus:ring-2 focus:ring-[#2D5F3F] focus:border-[#2D5F3F] transition-all`}
                       />
                       {errors.leadsourceother && (
                         <p className="text-red-500 text-sm mt-1">{errors.leadsourceother}</p>
@@ -643,7 +662,7 @@ export default function AdventureForm({ onSubmit, onBack, isLoading }: Adventure
                       value={formData.departurecity}
                       onValueChange={(value) => setFormData({ ...formData, departurecity: value })}
                     >
-                      <SelectTrigger className={`text-lg py-6 ${errors.departurecity ? 'border-red-500' : ''}`}>
+                      <SelectTrigger className={`text-lg py-6 ${errors.departurecity ? 'border-red-500' : ''} focus:ring-2 focus:ring-[#2D5F3F] focus:border-[#2D5F3F] transition-all`}>
                         <SelectValue placeholder="Selecciona tu ciudad" />
                       </SelectTrigger>
                       <SelectContent className="z-50">
@@ -674,7 +693,7 @@ export default function AdventureForm({ onSubmit, onBack, isLoading }: Adventure
                         placeholder="Tu ciudad de salida"
                         value={formData.departurecityother}
                         onChange={(e) => setFormData({ ...formData, departurecityother: e.target.value })}
-                        className={`text-lg py-6 ${errors.departurecityother ? 'border-red-500' : ''}`}
+                        className={`text-lg py-6 ${errors.departurecityother ? 'border-red-500' : ''} focus:ring-2 focus:ring-[#2D5F3F] focus:border-[#2D5F3F] transition-all`}
                       />
                       {errors.departurecityother && (
                         <p className="text-red-500 text-sm mt-1">{errors.departurecityother}</p>
@@ -715,7 +734,7 @@ export default function AdventureForm({ onSubmit, onBack, isLoading }: Adventure
                       value={formData.vehicletype}
                       onValueChange={(value) => setFormData({ ...formData, vehicletype: value })}
                     >
-                      <SelectTrigger className={`text-lg py-6 ${errors.vehicletype ? 'border-red-500' : ''}`}>
+                      <SelectTrigger className={`text-lg py-6 ${errors.vehicletype ? 'border-red-500' : ''} focus:ring-2 focus:ring-[#2D5F3F] focus:border-[#2D5F3F] transition-all`}>
                         <SelectValue placeholder="Selecciona tipo de vehículo" />
                       </SelectTrigger>
                       <SelectContent className="z-50">
@@ -759,7 +778,7 @@ export default function AdventureForm({ onSubmit, onBack, isLoading }: Adventure
                       value={formData.primarydestination}
                       onValueChange={(value) => setFormData({ ...formData, primarydestination: value })}
                     >
-                      <SelectTrigger className={`text-lg py-6 ${errors.primarydestination ? 'border-red-500' : ''}`}>
+                      <SelectTrigger className={`text-lg py-6 ${errors.primarydestination ? 'border-red-500' : ''} focus:ring-2 focus:ring-[#2D5F3F] focus:border-[#2D5F3F] transition-all`}>
                         <SelectValue placeholder="Selecciona tu destino" />
                       </SelectTrigger>
                       <SelectContent className="z-50">
@@ -955,7 +974,7 @@ export default function AdventureForm({ onSubmit, onBack, isLoading }: Adventure
                         min={1}
                         value={formData.adultscount}
                         onChange={(e) => setFormData({ ...formData, adultscount: parseInt(e.target.value) || 1 })}
-                        className={`text-lg py-6 ${errors.adultscount ? 'border-red-500' : ''}`}
+                        className={`text-lg py-6 ${errors.adultscount ? 'border-red-500' : ''} focus:ring-2 focus:ring-[#2D5F3F] focus:border-[#2D5F3F] transition-all`}
                         required
                       />
                       {errors.adultscount && (
@@ -972,7 +991,7 @@ export default function AdventureForm({ onSubmit, onBack, isLoading }: Adventure
                         min={0}
                         value={formData.childrencount}
                         onChange={(e) => setFormData({ ...formData, childrencount: parseInt(e.target.value) || 0 })}
-                        className="text-lg py-6"
+                        className="text-lg py-6 focus:ring-2 focus:ring-[#2D5F3F] focus:border-[#2D5F3F] transition-all"
                         required
                       />
                     </div>
@@ -987,7 +1006,7 @@ export default function AdventureForm({ onSubmit, onBack, isLoading }: Adventure
                       value={formData.fitnesslevel}
                       onValueChange={(value) => setFormData({ ...formData, fitnesslevel: value })}
                     >
-                      <SelectTrigger className={`text-lg py-6 ${errors.fitnesslevel ? 'border-red-500' : ''}`}>
+                      <SelectTrigger className={`text-lg py-6 ${errors.fitnesslevel ? 'border-red-500' : ''} focus:ring-2 focus:ring-[#2D5F3F] focus:border-[#2D5F3F] transition-all`}>
                         <SelectValue placeholder="Selecciona tu nivel" />
                       </SelectTrigger>
                       <SelectContent className="z-50">
@@ -1012,7 +1031,7 @@ export default function AdventureForm({ onSubmit, onBack, isLoading }: Adventure
                       value={formData.tripstyle}
                       onValueChange={(value) => setFormData({ ...formData, tripstyle: value })}
                     >
-                      <SelectTrigger className={`text-lg py-6 ${errors.tripstyle ? 'border-red-500' : ''}`}>
+                      <SelectTrigger className={`text-lg py-6 ${errors.tripstyle ? 'border-red-500' : ''} focus:ring-2 focus:ring-[#2D5F3F] focus:border-[#2D5F3F] transition-all`}>
                         <SelectValue placeholder="Selecciona tu estilo" />
                       </SelectTrigger>
                       <SelectContent className="z-50">
@@ -1067,7 +1086,7 @@ export default function AdventureForm({ onSubmit, onBack, isLoading }: Adventure
                         placeholder="Ej: 1 perro labrador de 3 años"
                         value={formData.petsdetails}
                         onChange={(e) => setFormData({ ...formData, petsdetails: e.target.value })}
-                        className={`text-lg py-6 ${errors.petsdetails ? 'border-red-500' : ''}`}
+                        className={`text-lg py-6 ${errors.petsdetails ? 'border-red-500' : ''} focus:ring-2 focus:ring-[#2D5F3F] focus:border-[#2D5F3F] transition-all`}
                       />
                       {errors.petsdetails && (
                         <p className="text-red-500 text-sm mt-1">{errors.petsdetails}</p>
@@ -1103,7 +1122,7 @@ export default function AdventureForm({ onSubmit, onBack, isLoading }: Adventure
                       value={formData.budgetusdperperson}
                       onValueChange={(value) => setFormData({ ...formData, budgetusdperperson: value })}
                     >
-                      <SelectTrigger className={`text-lg py-6 ${errors.budgetusdperperson ? 'border-red-500' : ''}`}>
+                      <SelectTrigger className={`text-lg py-6 ${errors.budgetusdperperson ? 'border-red-500' : ''} focus:ring-2 focus:ring-[#2D5F3F] focus:border-[#2D5F3F] transition-all`}>
                         <SelectValue placeholder="Selecciona tu presupuesto" />
                       </SelectTrigger>
                       <SelectContent className="z-50">
@@ -1175,7 +1194,7 @@ export default function AdventureForm({ onSubmit, onBack, isLoading }: Adventure
                           setFormData({ ...formData, additionalnotes: e.target.value });
                         }
                       }}
-                      className="text-lg min-h-[150px]"
+                      className="text-lg min-h-[150px] focus:ring-2 focus:ring-[#2D5F3F] focus:border-[#2D5F3F] transition-all"
                       maxLength={500}
                     />
                     <p className="text-[#2C3E50]/60 text-sm mt-1 text-right">
@@ -1213,12 +1232,15 @@ export default function AdventureForm({ onSubmit, onBack, isLoading }: Adventure
               <Button
                 type="submit"
                 disabled={isLoading}
-                className="bg-[#E8744F] hover:bg-[#E8744F]/90 text-white px-8 py-6 text-lg font-bold"
+                className={`bg-[#E8744F] hover:bg-[#E8744F]/90 text-white px-8 py-6 text-lg font-bold flex items-center justify-center gap-2 relative transition-all duration-200 ${isLoading ? 'opacity-70 cursor-not-allowed' : ''}`}
+                onClick={() => setShowSuccess(false)}
               >
                 {isLoading ? (
                   <>
-                    <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-                    Enviando...
+                    <span className="absolute left-4 flex items-center">
+                      <Loader2 className="w-6 h-6 animate-spin text-white" />
+                    </span>
+                    <span className="ml-8 animate-pulse">Enviando...</span>
                   </>
                 ) : (
                   'ENVIAR SOLICITUD'
@@ -1227,6 +1249,18 @@ export default function AdventureForm({ onSubmit, onBack, isLoading }: Adventure
             )}
           </div>
         </motion.form>
+        {/* Feedback de éxito al fondo para mobile */}
+        {showSuccess && (
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 30 }}
+            className="fixed bottom-8 left-1/2 z-40 -translate-x-1/2 bg-green-500 text-white px-6 py-4 rounded-xl shadow-lg flex items-center gap-3 font-semibold text-lg sm:hidden"
+          >
+            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+            ¡Solicitud enviada con éxito!
+          </motion.div>
+        )}
       </div>
     </section>
   );

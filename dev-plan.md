@@ -1,25 +1,27 @@
-# Plan de Diseño UX/UI: Nomaderia "Premium Feel"
+# Misión: Adaptación a Política Tarifaria 2026
 
-## Objetivo Principal
-Mejorar la experiencia de usuario mediante micro-interacciones, animaciones suaves y mejor feedback visual, usando Tailwind CSS.
+## Objetivo
+Adaptar la plataforma para informar sobre el recargo de $100 USD en los "Big 11" y promover activamente alternativas libres de este cobro.
 
-## Tareas de Diseño
-- [x] **Hero & Primera Impresión:** Animaciones de entrada (fade-in-up) rápidas y suaves aplicadas al texto y botones en `src/components/Hero.tsx` usando Tailwind (transition-all, duration-300, ease-out, opacity, translate-y).
-- [x] **Interacción en Tarjetas:** Hover mejorado en tarjetas de `src/components/Destinations.tsx` y `src/components/Gallery.tsx` con hover:scale-105, hover:shadow-xl, transition-all, duration-300, ease-out.
-- [x] **Feedback de Formularios:** Estados visuales de focus, loading y éxito mejorados en `src/components/AdventureForm.tsx` usando Tailwind. Inputs resaltan en focus, loading animado, feedback de éxito animado.
-- [x] **Botones y Enlaces:** Estilos visuales unificados en todos los botones y enlaces, con estados hover y active claros y consistentes usando Tailwind (transition-all, hover:scale-105, hover:shadow-xl, focus:ring, etc.).
+## Tareas de Base de Datos (Backend)
+- [x] **Schema:** Actualizar tabla `destinations` con columna `surcharge_fee` (Numeric, default 0) y `is_surcharge_free` (Boolean).
+- [x] **Seed:** Marcar Yosemite, Grand Canyon, Yellowstone, Zion, etc., con `surcharge_fee = 100`.
+- [x] **Nuevos Destinos (USA - Sin cobro):** Generar datos para: Death Valley (CA), Joshua Tree (CA), Valley of Fire (NV State Park), Arches (UT - verificar si aplica).
+- [x] **Nuevos Destinos (LatAm):** Generar datos para: Nevado de Toluca, Iztaccíhuatl, Torres del Paine (Chile).
 
-## Bitácora de Agentes
-### Bitácora de Agentes
+## Tareas de Contenido (Blog & Estrategia)
+- [ ] **Artículo Alerta:** "La lista de los 11 parques que cobran $100 USD extra (y a cuáles ir en su lugar)".
+- [ ] **Guías de Ahorro:** Crear comparativas de precio: "Yosemite ($135) vs Nevado de Toluca ($5)".
 
-- **Hero & Primera Impresión:**
-	- Se aplicaron animaciones de entrada fade-in-up rápidas y suaves al texto y botones usando Tailwind (transition-all, duration-300, ease-out, opacity, translate-y).
+## Tareas de Frontend (UI)
+- [x] **Advertencia:** En tarjetas de destino, si el parque tiene recargo, mostrar un badge rojo: "⚠️ $100 Non-Res Fee". Si es libre de impuesto, destacar con badge verde.
+- [ ] **Filtro Inteligente:** Crear un toggle en la búsqueda: "Mostrar solo destinos sin recargo".
+- [x] **Calculadora:** Actualizar `TripCalculator.tsx` para preguntar "¿Eres ciudadano/residente?" y sumar los $100 si la respuesta es No.
 
-- **Interacción en Tarjetas:**
-	- Hover en tarjetas de Destinations y Gallery mejorado con hover:scale-105, hover:shadow-xl, transition-all, duration-300, ease-out para un efecto sutil y profesional.
-
-- **Feedback de Formularios:**
-	- Inputs y selects resaltan en focus (borde verde), loading animado en el botón, y mensaje de éxito animado tras submit exitoso, todo con utilidades de Tailwind.
-
-- **Botones y Enlaces:**
-	- Se unificaron los estilos visuales de todos los botones y enlaces, asegurando consistencia y claridad en los estados hover y active.
+## Bitácora
+### 2026-01-29
+- Se creó la migración SQL para surcharge_fee e is_surcharge_free en destinations.
+- Se generó seed_smart_travel.sql con los 11 parques caros (recargo activo), 5 alternativas sin recargo en USA y 3 destinos top LatAm.
+- TripCalculator.tsx ahora pregunta por Green Card/Pasaporte USA y suma $100 si no lo tiene y el parque es caro.
+- Las tarjetas de destino muestran visualmente los lugares "Libres de Impuesto" como mejor opción y badge de recargo en los caros.
+Falta: Filtro inteligente en búsqueda de destinos.
