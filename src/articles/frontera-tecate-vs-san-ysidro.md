@@ -1,3 +1,15 @@
+# ---
+# title: "Cruzar la Frontera: ¿Tecate o San Ysidro?"
+# description: "Análisis de rutas y tiempos para elegir la mejor frontera según tu destino. Ahorra horas de manejo."
+# keywords:
+#   - frontera
+#   - Tecate
+#   - San Ysidro
+#   - rutas
+#   - viajes
+# slug: "frontera-tecate-vs-san-ysidro"
+# ---
+
 # Cruzar la Frontera: ¿Tecate o San Ysidro para ir a los Parques Nacionales?
 
 **Fecha:** 8 de enero de 2026  

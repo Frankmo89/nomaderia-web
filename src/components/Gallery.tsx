@@ -43,13 +43,13 @@ export default function Gallery() {
       subtitle: 'Encuentros',
     },
     {
-      src: '/images/parks/grand-canyon/hero.jpg',
+      src: '/images/parks/grand-canyon/hero.webp',
       alt: 'Grand Canyon',
       title: 'Grand Canyon',
       subtitle: 'Próximamente',
     },
     {
-      src: '/images/parks/zion/hero.jpg',
+      src: '/images/parks/zion/hero.webp',
       alt: 'Zion Canyon',
       title: 'Zion',
       subtitle: 'Próximamente',

@@ -1,3 +1,15 @@
+# ---
+# title: "5 Errores Que Cometí en Mi Primer Viaje a Yosemite"
+# description: "Mi experiencia real llevando a mis papás a Yosemite. Los errores que cometí para que tú no los repitas."
+# keywords:
+#   - Yosemite
+#   - errores de viaje
+#   - consejos
+#   - hiking
+#   - viaje en familia
+# slug: "5-errores-yosemite"
+# ---
+
 # 5 Errores Que Cometí en Mi Primer Viaje a Yosemite (Y Cómo Evitarlos)
 
 **Fecha:** 8 de enero de 2026  

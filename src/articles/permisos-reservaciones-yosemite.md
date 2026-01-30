@@ -1,3 +1,15 @@
+# ---
+# title: "Permisos y Reservaciones en Yosemite: Guía Completa 2026"
+# description: "Todo lo que necesitas saber sobre Recreation.gov, reservaciones de entrada y permisos especiales."
+# keywords:
+#   - Yosemite
+#   - reservaciones
+#   - Recreation.gov
+#   - permisos
+#   - entrada parque
+# slug: "permisos-reservaciones-yosemite"
+# ---
+
 # Permisos y Reservaciones en Yosemite: Guía Completa 2026
 
 **Fecha:** 8 de enero de 2026  

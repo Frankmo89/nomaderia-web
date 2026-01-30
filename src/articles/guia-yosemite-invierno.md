@@ -1,3 +1,15 @@
+# ---
+# title: "Guía Completa: Qué Llevar a Yosemite en Invierno"
+# description: "Aprende qué equipo es esencial para disfrutar de Yosemite en invierno sin pasar frío ni cometer errores costosos."
+# keywords:
+#   - Yosemite
+#   - invierno
+#   - equipamiento
+#   - cadenas de nieve
+#   - viajes
+# slug: "guia-yosemite-invierno"
+# ---
+
 # Guía Completa: Qué Llevar a Yosemite en Invierno (y No Morir en el Intento)
 
 **Fecha:** 8 de enero de 2026  
