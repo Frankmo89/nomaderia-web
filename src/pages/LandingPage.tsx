@@ -37,7 +37,7 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      <Navigation />
+      <Navigation onStartPlanning={() => {}} />
       
       <main>
         <HeroSection 

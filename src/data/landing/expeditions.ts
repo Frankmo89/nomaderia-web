@@ -143,6 +143,7 @@ export const expeditions: Expedition[] = [
     location: 'San Pedro de Atacama',
     country: 'Chile',
     duration: '5 días / 4 noches',
+    difficulty: 'Moderada',
     priceUSD: 1400,
     description: 'Explora el desierto más árido del mundo bajo los cielos más limpios del planeta. Astronomía, geysers y lagunas altiplánicas.',
     highlights: [

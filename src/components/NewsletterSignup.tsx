@@ -7,6 +7,9 @@ import { supabase } from "@/lib/supabase";
 import type { NewLead } from "@/types/supabase";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const MAX_EMAIL_LENGTH = 120;
+
+const sanitizeEmail = (raw: string) => raw.trim().toLowerCase().replace(/[<>"'`\\]/g, '').slice(0, MAX_EMAIL_LENGTH);
 
 export default function NewsletterSignup() {
   const { toast } = useToast();
@@ -18,15 +21,26 @@ export default function NewsletterSignup() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (loading) return; // Prevenir doble envío
     setError(null);
     setSuccess(false);
 
-    const trimmed = email.trim();
+    const trimmed = sanitizeEmail(email);
     if (!trimmed) {
+      toast({
+        title: "Correo requerido",
+        description: "Por favor ingresa un correo electrónico.",
+        variant: "destructive",
+      });
       setError("Por favor ingresa un correo electrónico.");
       return;
     }
     if (!EMAIL_REGEX.test(trimmed)) {
+      toast({
+        title: "Correo inválido",
+        description: "El correo ingresado no es válido.",
+        variant: "destructive",
+      });
       setError("Correo inválido.");
       return;
     }
@@ -39,77 +53,61 @@ export default function NewsletterSignup() {
       status: 'new',
       created_at: new Date().toISOString(),
     } as NewLead;
-    const MAX_EMAIL_LENGTH = 120;
-    const sanitizeEmail = (raw: string) => raw.trim().toLowerCase().replace(/[<>"'`\\]/g, '').slice(0, MAX_EMAIL_LENGTH);
 
-    const handleSubmit = async (e: React.FormEvent) => {
-      e.preventDefault();
-      if (loading) return; // Prevenir doble envío
-      setError(null);
-      setSuccess(false);
+    try {
+      const { error: supaError } = await (supabase as any)
+        .from("leads")
+        .insert([newLead]);
 
-      const trimmed = sanitizeEmail(email);
-      if (!trimmed) {
+      if (supaError) {
+        // No mostrar detalles técnicos al usuario
         toast({
-          title: "Correo requerido",
-          description: "Por favor ingresa un correo electrónico.",
+          title: "Error al registrarte",
+          description: "No se pudo guardar tu correo. Intenta de nuevo.",
           variant: "destructive",
         });
-        setError("Por favor ingresa un correo electrónico.");
-        return;
-      }
-      if (!EMAIL_REGEX.test(trimmed)) {
+        setError("No se pudo registrar el correo. Intenta nuevamente.");
+      } else {
+        setSuccess(true);
+        setEmail("");
         toast({
-          title: "Correo inválido",
-          description: "El correo ingresado no es válido.",
-          variant: "destructive",
+          title: "¡Registro exitoso!",
+          description: "Gracias por suscribirte.",
         });
-        setError("Correo inválido.");
-        return;
       }
+    } catch {
+      toast({
+        title: "Error inesperado",
+        description: "Ocurrió un error inesperado. Intenta más tarde.",
+        variant: "destructive",
+      });
+      setError("Ocurrió un error inesperado.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-      setLoading(true);
-
-      const newLead: NewLead = {
-        email: trimmed,
-        source: "form",
-        status: 'new',
-        created_at: new Date().toISOString(),
-      } as NewLead;
-
-      try {
-        const { error: supaError } = await (supabase as any)
-          .from("leads")
-          .insert([newLead]);
-
-        if (supaError) {
-          // No mostrar detalles técnicos al usuario
-          toast({
-            title: "Error al registrarte",
-            description: "No se pudo guardar tu correo. Intenta de nuevo.",
-            variant: "destructive",
-          });
-          setError("No se pudo registrar el correo. Intenta nuevamente.");
-        } else {
-          setSuccess(true);
-          setEmail("");
-          toast({
-            title: "¡Registro exitoso!",
-            description: "Gracias por suscribirte.",
-            variant: "success",
-          });
-        }
-      } catch {
-        toast({
-          title: "Error inesperado",
-          description: "Ocurrió un error inesperado. Intenta más tarde.",
-          variant: "destructive",
-        });
-        setError("Ocurrió un error inesperado.");
-      } finally {
-        setLoading(false);
-      }
-    };
+  return (
+    <form onSubmit={handleSubmit} className="w-full max-w-md space-y-2" aria-label="Formulario de suscripción al newsletter">
+      <div className="flex flex-col gap-2">
+        <Label htmlFor="newsletter-email" className="sr-only">Correo electrónico</Label>
+        <div className="flex gap-2">
+          <Input
+            id="newsletter-email"
+            type="email"
+            placeholder="tu@email.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            disabled={loading}
+            required
+            aria-required="true"
+            aria-invalid={!!error}
+            aria-describedby={error ? "newsletter-error" : undefined}
+            className="flex-1"
+          />
+          <Button type="submit" disabled={loading} aria-busy={loading}>
+            {loading ? "Enviando..." : "Suscribirse"}
+          </Button>
         </div>
 
         {error ? (
