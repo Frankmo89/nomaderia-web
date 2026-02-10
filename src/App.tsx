@@ -4,6 +4,7 @@ import LoadingState from "./components/LoadingState";
 
 // Lazy load components for better code splitting
 const Home = lazy(() => import("./components/home"));
+const LandingPage = lazy(() => import("./pages/LandingPage"));
 const ServiciosPage = lazy(() => import("./components/ServiciosPage"));
 const AdminLogin = lazy(() => import("./components/AdminLogin"));
 const AdminDashboard = lazy(() => import("./components/AdminDashboard"));
@@ -46,7 +47,8 @@ function App() {
     <Suspense fallback={<LoadingState />}>
       <>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/old-home" element={<Home />} />
           <Route path="/servicios" element={<ServiciosWrapper />} />
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
