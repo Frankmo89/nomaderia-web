@@ -16,13 +16,16 @@ Plataforma web para Nomadería - Tu Arquitecto de Aventuras. Aplicación de plan
 ## 📋 Prerequisites
 
 - Node.js 18+ 
-- npm or pnpm
+- pnpm 10.29.2 (specified in package.json via packageManager field)
 
 ## 🛠️ Installation
 
 ```bash
+# Install pnpm globally if you don't have it
+npm install -g pnpm
+
 # Install dependencies
-npm install
+pnpm install
 
 # Copy environment variables
 cp .env.example .env
@@ -33,16 +36,16 @@ cp .env.example .env
 
 ```bash
 # Start development server
-npm run dev
+pnpm run dev
 
 # Build for production
-npm run build
+pnpm run build
 
 # Preview production build
-npm run preview
+pnpm run preview
 
 # Run linter
-npm run lint
+pnpm run lint
 ```
 
 ## 📁 Project Structure
@@ -83,6 +86,15 @@ See `.env.example` for required environment variables.
 # Run TypeScript compiler
 tsc --noEmit
 ```
+
+## 🚀 Deployment
+
+This project uses pnpm as the package manager. The `packageManager` field in `package.json` ensures that Vercel and other deployment platforms use the correct version (pnpm@10.29.2).
+
+### Vercel Deployment
+- Vercel automatically detects the `packageManager` field and uses pnpm 10.29.2
+- The `pnpm-lock.yaml` file is kept in sync with `package.json`
+- Deployments use `--frozen-lockfile` to ensure consistent installations
 
 ## 🤝 Contributing
 
