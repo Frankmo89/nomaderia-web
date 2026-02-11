@@ -79,7 +79,7 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
 
         {/* Footer */}
         <p className="text-center text-white/40 text-sm mt-8">
-          © 2025 Nomadería. Sistema de Administración
+          © {new Date().getFullYear()} Nomadería. Sistema de Administración
         </p>
       </div>
     </div>

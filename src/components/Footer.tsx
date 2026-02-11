@@ -69,7 +69,7 @@ export default function Footer() {
 
         <div className="mt-16 pt-8 border-t border-white/10 text-center">
           <p className="text-white/40 text-sm">
-            © 2025 Nomadería. Todos los derechos reservados.
+            © {new Date().getFullYear()} Nomadería. Todos los derechos reservados.
           </p>
           <p className="text-mono text-xs uppercase tracking-wider text-white/30 mt-2">
             Creado para aventureros, por aventureros
