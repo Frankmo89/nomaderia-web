@@ -32,7 +32,9 @@ export default function EmailCaptureModal({ isOpen, onClose }: EmailCaptureModal
 
     try {
       // Mailchimp integration using embedded form
-      // For production, you would use Mailchimp's API or a backend endpoint
+      // Note: Using no-cors mode means we can't read the response status.
+      // The Supabase insert below acts as our primary success indicator.
+      // For production, consider using Mailchimp's API for better error handling.
       const formData = new FormData();
       formData.append('EMAIL', email);
       formData.append('FNAME', name);
@@ -41,15 +43,15 @@ export default function EmailCaptureModal({ isOpen, onClose }: EmailCaptureModal
       const mailchimpUrl = import.meta.env.VITE_MAILCHIMP_FORM_URL;
 
       if (mailchimpUrl) {
-        // Submit to Mailchimp
+        // Submit to Mailchimp (fire-and-forget due to no-cors)
         await fetch(mailchimpUrl, {
           method: 'POST',
           body: formData,
-          mode: 'no-cors' // Mailchimp forms typically require no-cors
+          mode: 'no-cors'
         });
       }
 
-      // Also save to Supabase for backup
+      // Save to Supabase for backup and tracking
       const { supabase } = await import('@/lib/supabase');
       await supabase.from('newsletter_subscribers').insert([
         {

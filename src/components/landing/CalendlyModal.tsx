@@ -8,8 +8,13 @@ interface CalendlyModalProps {
 }
 
 export default function CalendlyModal({ isOpen, onClose, url }: CalendlyModalProps) {
-  // Use environment variable or default URL
-  const calendlyUrl = url || import.meta.env.VITE_CALENDLY_URL || 'https://calendly.com/nomaderia/30min';
+  // Use environment variable - must be configured before use
+  const calendlyUrl = url || import.meta.env.VITE_CALENDLY_URL;
+
+  if (!calendlyUrl) {
+    console.error('Calendly URL not configured. Please set VITE_CALENDLY_URL in your environment variables.');
+    return null;
+  }
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
