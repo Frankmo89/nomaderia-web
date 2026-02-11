@@ -35,7 +35,7 @@
     --ring: 152 26% 28%;
 
     --radius: 0.75rem;
-    
+
     --ocean-blue: 210 71% 15%;
     --forest-green: 152 26% 28%;
     --burnt-orange: 14 75% 61%;
@@ -54,7 +54,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  
+
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Fraunces', serif;
     font-weight: 700;
@@ -67,21 +67,21 @@
     font-family: 'Fraunces', serif;
     letter-spacing: -0.03em;
   }
-  
+
   .text-heading {
     font-family: 'Space Grotesk', sans-serif;
     letter-spacing: -0.01em;
   }
-  
+
   .text-mono {
     font-family: 'JetBrains Mono', monospace;
     letter-spacing: 0.05em;
   }
-  
+
   .noise-texture {
     position: relative;
   }
-  
+
   .noise-texture::before {
     content: '';
     position: absolute;
@@ -90,9 +90,200 @@
     pointer-events: none;
     z-index: 0;
   }
-  
+
   .topo-pattern {
     background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0c16.569 0 30 13.431 30 30 0 16.569-13.431 30-30 30C13.431 60 0 46.569 0 30 0 13.431 13.431 0 30 0zm0 5C16.193 5 5 16.193 5 30s11.193 25 25 25 25-11.193 25-25S43.807 5 30 5zm0 5c11.046 0 20 8.954 20 20s-8.954 20-20 20-20-8.954-20-20 8.954-20 20-20z' fill='%230A2540' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+  }
+
+  /* ============================
+     Hero Effects & Animations
+     ============================ */
+
+  /* Hero CTA glowing button */
+  .hero-cta-glow {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-cta-glow::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #E8744F, #d65a35, #E8744F, #ff9a76);
+    border-radius: inherit;
+    z-index: -1;
+    animation: cta-glow 3s ease-in-out infinite;
+    filter: blur(8px);
+    opacity: 0.5;
+  }
+
+  @keyframes cta-glow {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.02); }
+  }
+
+  /* Hero badge subtle pulse glow */
+  .hero-badge-glow {
+    animation: badge-glow 4s ease-in-out infinite;
+  }
+
+  @keyframes badge-glow {
+    0%, 100% { box-shadow: 0 0 10px rgba(232, 116, 79, 0); }
+    50% { box-shadow: 0 0 20px rgba(232, 116, 79, 0.15); }
+  }
+
+  /* Hero gradient shimmer overlay */
+  .hero-gradient-shimmer {
+    background: linear-gradient(
+      135deg,
+      transparent 0%,
+      rgba(232, 116, 79, 0.05) 25%,
+      transparent 50%,
+      rgba(45, 95, 63, 0.05) 75%,
+      transparent 100%
+    );
+    background-size: 400% 400%;
+    animation: gradient-shimmer 8s ease-in-out infinite;
+  }
+
+  @keyframes gradient-shimmer {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  /* ============================
+     Gallery & Card Effects
+     ============================ */
+
+  /* Card lift on hover with glow */
+  .card-hover-glow {
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  .card-hover-glow:hover {
+    transform: translateY(-8px);
+    box-shadow:
+      0 20px 60px rgba(10, 37, 64, 0.15),
+      0 0 30px rgba(232, 116, 79, 0.1);
+  }
+
+  /* Image reveal animation */
+  .image-reveal {
+    clip-path: inset(0 100% 0 0);
+    animation: image-reveal 0.8s ease-out forwards;
+  }
+
+  @keyframes image-reveal {
+    to { clip-path: inset(0 0% 0 0); }
+  }
+
+  /* Gradient text animation */
+  .text-gradient-animate {
+    background: linear-gradient(135deg, #E8744F, #ff9a76, #E8744F);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: text-gradient-flow 4s linear infinite;
+  }
+
+  @keyframes text-gradient-flow {
+    0% { background-position: 0% center; }
+    100% { background-position: 200% center; }
+  }
+
+  /* ============================
+     Section Transitions
+     ============================ */
+
+  /* Smooth section background blend */
+  .section-fade-in {
+    animation: section-fade 0.6s ease-out forwards;
+  }
+
+  @keyframes section-fade {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Parallax depth layers */
+  .parallax-slow {
+    will-change: transform;
+    transform: translateZ(-2px) scale(3);
+  }
+
+  .parallax-fast {
+    will-change: transform;
+    transform: translateZ(-1px) scale(2);
+  }
+
+  /* ============================
+     Gallery Masonry Effects
+     ============================ */
+
+  .gallery-item-shine {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .gallery-item-shine::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      to bottom right,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0) 40%,
+      rgba(255, 255, 255, 0.1) 50%,
+      rgba(255, 255, 255, 0) 60%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    transform: rotate(30deg);
+    transition: transform 0.6s ease;
+    pointer-events: none;
+  }
+
+  .gallery-item-shine:hover::after {
+    transform: rotate(30deg) translate(60%, 60%);
+  }
+
+  /* ============================
+     Video Player Effects
+     ============================ */
+
+  .video-play-pulse {
+    animation: play-pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes play-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(232, 116, 79, 0.4); }
+    50% { box-shadow: 0 0 0 15px rgba(232, 116, 79, 0); }
+  }
+
+  /* ============================
+     Loading & Skeleton
+     ============================ */
+
+  .skeleton-shimmer {
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.05) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-move 1.5s ease-in-out infinite;
+  }
+
+  @keyframes skeleton-move {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
   }
 
   /* Custom scrollbar */
@@ -100,17 +291,30 @@
     width: 8px;
     height: 8px;
   }
-  
+
   ::-webkit-scrollbar-track {
     background: #F8F6F3;
   }
-  
+
   ::-webkit-scrollbar-thumb {
     background: #2C3E50;
     border-radius: 4px;
   }
-  
+
   ::-webkit-scrollbar-thumb:hover {
     background: #0A2540;
+  }
+
+  /* ============================
+     Smooth scroll behavior
+     ============================ */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Selection colors */
+  ::selection {
+    background: rgba(232, 116, 79, 0.3);
+    color: #0A2540;
   }
 }
